@@ -1,4 +1,4 @@
-angularjs-testing-guidelines
+protractor-testing-guidelines
 ============================
 
-Some guidelines for us souls out there, looking for testing best practices in angularjs
+Some guidelines for us souls out there, looking for some testing best practices with protractor
