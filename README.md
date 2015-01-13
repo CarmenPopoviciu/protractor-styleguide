@@ -10,8 +10,8 @@ These guidelines were written having strictly AngularJS applications in mind....
 ## Table of Contents
 
 1. [Testing](#testing)
-  1. [Unit Testing](#unit-testing)
-  2. [E2E Testing](#e2e-testing)
+  * [Unit Testing](#unit-testing)
+  * [E2E Testing](#e2e-testing)
 3. [Protractor](#protractor)
 4. [Page Objects](#page-objects)
 5. [Helper Classes](#helper-classes)
