@@ -1,4 +1,4 @@
-protractor-testing-guidelines
+Protractor Testing Guidelines
 ============================
 
-Some guidelines for us souls out there, looking for some testing best practices with protractor
+Some opinionated guidelines for those out there, looking for testing best practices with protractor
