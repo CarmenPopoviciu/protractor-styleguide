@@ -41,6 +41,7 @@ leave to that, and oh well, one example, just for the peace of mind of it ;)
   /* recommended */
 
   // add example here
+```
 
 #### E2E Testing
 
