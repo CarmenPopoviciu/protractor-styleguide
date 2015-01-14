@@ -78,7 +78,7 @@ of WebDriverJS, which adds some Angular-specific functionality.
 
 // TODO what more do we want to say here?
 
-**One word of advice** New versions of Protractor can sometimes come with breaking changes, which might, well, break
+**One word of advice!** New versions of Protractor can sometimes come with breaking changes, which might, well, break
 your tests. Make sure to always read the changelog before updating to a newer or the latest version!
 
 
