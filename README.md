@@ -66,11 +66,30 @@ these dependencies.
 
 ## Protractor
 
+If you've been in the Angular world for long enough, you'll probably remember about the [Angular Scenario Runner]
+(https://code.angularjs.org/1.2.16/docs/guide/e2e-testing). The Scenario Runner was originally shipped with Angular as a
+tool to help developers e2e test their application. However, due to some design and maintenance issues, the team decided
+to not continue with its development and provide a better solution on the long term. Currently, the Angular Scenario
+Runner is deprecated and in maintenance mode, so in case you are using it in your application, you might want to
+reconsider.
+
+The "new" tool for e2e testing your AngularJS application is Protractor. Protractor is an e2e test framework build on top
+of WebDriverJS, which adds some Angular-specific functionality.
+
+// TODO what more do we want to say here?
+
+**One word of advice** New versions of Protractor can sometimes come with breaking changes, which might, well, break
+your tests. Make sure to always read the changelog before updating to a newer or the latest version!
+
+
 ## Page Objects
 
 ## Helper Classes
 
 ## Useful Links
-######Unit Testing
+###### Unit Testing
   * [Karma](http://karma-runner.github.io/)
   * [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
+
+###### E2E Testing
+  * [Protractor](http://angular.github.io/protractor)
