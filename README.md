@@ -12,9 +12,11 @@ These guidelines were written having strictly AngularJS applications in mind....
 1. [Testing](#testing)
   * [Unit Testing](#unit-testing)
   * [E2E Testing](#e2e-testing)
-3. [Protractor](#protractor)
-4. [Page Objects](#page-objects)
-5. [Helper Classes](#helper-classes)
+2. [Protractor](#protractor)
+3. [Page Objects](#page-objects)
+4. [Helper Classes](#helper-classes)
+5. [Useful Links](#useful-links)
+
 
 ## Testing
 
@@ -67,3 +69,5 @@ these dependencies.
 ## Page Objects
 
 ## Helper Classes
+
+## Useful Links
