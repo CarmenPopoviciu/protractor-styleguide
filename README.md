@@ -28,14 +28,16 @@ process.
 Unit tests are your first line of defence against bugs and errors in your code. They ensure that the smallest parts
 of your code, the units, work as intended, by testing them in complete isolation from the rest of the application. If you
 think of your application as the process of building a car, unit testing would be taking each car part, like the wheels,
-or the engine, separately, and checking whether they work as intended, independently from the other parts of the car. It
-is important to remember the "in complete isolation" aspect of unit testing. Instantiating services, making API calls,
-or even worse, instantiating the entire system (all very expensive operations), in order to test one single
+or the engine, separately, and checking whether they work as intended, independently from the other parts of the car.
+
+It is important to remember the "in complete isolation" aspect of unit testing. Instantiating services, making API calls,
+or even worse, instantiating the entire system (all very expensive operations), in order to test just one single
 unit, is unnecessary and not something that you want to have in your unit tests. The general rule of thumb is to mock
 any external dependencies of the unit under test.
 
-There are many more things to say about unit testing, but since the subject is outside the scope of this article, let's
-leave to that, and oh well, one example, just for the peace of mind of it ;)
+There are many more things to say about unit testing, and there are even some [links](#useful-links) to help you out
+with that, but since the subject is outside the scope of this article, let's leave it to that, and oh well, one example,
+just for the peace of mind of it ;)
 
 ```javascript
   /* recommended */
@@ -44,6 +46,21 @@ leave to that, and oh well, one example, just for the peace of mind of it ;)
 ```
 
 #### E2E Testing
+
+E2E tests come into play once all units are fully tested and you want to start looking into how these components play
+together. In other words, you will want to make sure that once your end user starts interacting with your application
+and clicks his/her way through it, it will behave as expected and not }:) output :o all sort o/ of funny :P smileys
+everywhere ;).
+
+Coming back to our previous car example, e2e testing would mean checking that all components of the car integrate well
+with each other and have the expected behavior as an overall, so for instance that the break lights turn on when the
+driver steps on the breaks or that the wheels start turning when the driver steps on the acceleration pedal, and so on.
+
+Again, it is very important to keep in mind, that just like with unit tests, e2e tests are black-box tests and only
+care about the functionality of the application from an end user point of view. Whether or not the services around the
+application work properly, or that responses from the server are correct, and so on, is outside the scope of e2e testing
+and should be handled as separate tests, which we will not cover in this article. Rule of thumb is again to mock all
+these dependencies.
 
 ## Protractor
 
