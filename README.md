@@ -71,6 +71,6 @@ these dependencies.
 ## Helper Classes
 
 ## Useful Links
-####Unit Testing
+######Unit Testing
   * [Karma](http://karma-runner.github.io/)
   * [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
