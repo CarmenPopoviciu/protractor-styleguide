@@ -58,7 +58,7 @@ Coming back to our previous car example, e2e testing would mean checking that al
 with each other and have the expected behavior as an overall, so for instance that the break lights turn on when the
 driver steps on the breaks or that the wheels start turning when the driver steps on the acceleration pedal, and so on.
 
-Again, it is very important to keep in mind, that just like with unit tests, e2e tests are black-box tests and only
+It is very important to keep in mind that, maybe contrary to unit tests, e2e tests are black-box tests and only
 care about the functionality of the application from an end user point of view. Whether or not the services around the
 application work properly, or that responses from the server are correct, and so on, is outside the scope of e2e testing
 and should be handled as separate tests, which we will not cover in this article. Rule of thumb is again to mock all
@@ -67,14 +67,16 @@ these dependencies.
 ## Protractor
 
 If you've been in the Angular world for long enough, you'll probably remember about the [Angular Scenario Runner]
-(https://code.angularjs.org/1.2.16/docs/guide/e2e-testing). The Scenario Runner was originally shipped with Angular as a
+(https://code.angularjs.org/1.2.16/docs/guide/e2e-testing) (also called 'karma e2e'). The Scenario Runner was originally shipped with Angular as a
 tool to help developers e2e test their application. However, due to some design and maintenance issues, the team decided
 to not continue with its development and provide a better solution on the long term. Currently, the Angular Scenario
 Runner is deprecated and in maintenance mode, so in case you are using it in your application, you might want to
-reconsider.
+reconsider migrating to protractor.
 
-The "new" tool for e2e testing your AngularJS application is Protractor. Protractor is an e2e test framework build on top
-of WebDriverJS, which adds some Angular-specific functionality.
+The "new" tool for e2e testing your AngularJS application is called Protractor. Protractor is an e2e test framework build on top
+of WebDriverJS (with some Angular-specific functionality). WebDriverJS is the JavaScript api for interacting with Selenium.
+This is actually the biggest advantage over the old Angular Scenario Runner, instead of hacking in the dom using JavaScript, protractor will
+pretend to be an actual human being who is using your app.
 
 // TODO what more do we want to say here?
 
