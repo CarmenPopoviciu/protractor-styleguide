@@ -81,6 +81,14 @@ of WebDriverJS, which adds some Angular-specific functionality.
 **One word of advice!** New versions of Protractor can sometimes come with breaking changes, which might, well, break
 your tests. Make sure to always read the changelog before updating to a newer or the latest version!
 
+### One config file to rule them all
+
+  - Create one protractor.conf.js file. You can create spin-offs using grunt (or an other task runner).
+
+Any protractor test suite starts out with a protractor.conf.js file, which, as the name suggests, configuration code for
+protractor written out in javascript. When you want to test different test tasks (targets), its easy to create copies of
+the conf file. You shouldn't do that. Just because a file contains config, doesn't mean that it isn't code and thus
+you should treat it as if it is production code. Code duplication is not acceptable.
 
 ## Page Objects
 
