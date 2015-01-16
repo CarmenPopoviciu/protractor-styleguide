@@ -15,6 +15,7 @@ These guidelines were written having strictly AngularJS applications in mind....
 2. [Protractor](#protractor)
 3. [Page Objects](#page-objects)
 4. [Helper Classes](#helper-classes)
+5. [Jasmine best practices](#jasmine-best-practices)
 5. [Useful Links](#useful-links)
 
 
@@ -95,6 +96,8 @@ you should treat it as if it is production code. Code duplication is not accepta
 ## Page Objects
 
 ## Helper Classes
+
+## Jasmine best practices
 
 ## Useful Links
 ###### Unit Testing
