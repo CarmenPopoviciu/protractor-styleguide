@@ -99,6 +99,39 @@ you should treat it as if it is production code. Code duplication is not accepta
 
 ## Jasmine best practices
 
+Protractor supports 3 test frameworks out of the box. Although it might be possible to use other test frameworks,
+you would be on your own with no help from the protractor docs. From the 3 test framework brothers (mocha, jasmine and cucumber),
+[jasmine](http://jasmine.github.io/) has got to be the most popular one.
+
+### Nest like a mad man
+
+  - Nest `describe`s whenever you have 1 (or more) duplicated line(s) of code in 2 or more it-functions.
+
+    *Why?*: Writing jasmine tests can feel a lot like peeling an union. This is because `describe` functions can be stacked on top
+of each other until your eyes feel watery. This can feel unnatural to a backend (java, c#) guy, but a front end guy feels right at home.
+This is because nesting these functions can feel a lot like nesting html. This is a perfect marriage!
+
+    *Why?*: Nesting describes this way help you when you try to understand your ui better. Whenever it feels hard to write a `beforeEach` or `afterEach`,
+it can indicate that the structure of your html is weird or incorrect.
+
+  ```javascript
+
+  /* example */
+  describe('the first page', function(){
+
+    describe('sd', function(){
+    });
+  });
+
+  ```
+
+### Make your tests independent
+
+  - Each test (`it`) is responsible for its own result, it (pun intended) should never depend on previous `it`s doing the work for him.
+
+  *Why?*: Each test should be able to run in pure isolation. Features change. Design changes. You should be able to remove or
+  reorder tests that cover a specific feature, without having to reorganize other tests.
+
 ## Useful Links
 ###### Unit Testing
   * [Karma](http://karma-runner.github.io/)
