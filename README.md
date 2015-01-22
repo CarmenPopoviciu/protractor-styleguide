@@ -64,6 +64,11 @@ application work properly, or that responses from the server are correct, and so
 and should be handled as separate tests, which we will not cover in this article. Rule of thumb is again to mock all
 these dependencies.
 
+//TODO add mention here that ppl could also let all the calls go through
+// make clear that ppl understand that the point of e2e testing is not to test your services and api calls but rather
+//the user interaction of your app
+// run tests against mocks
+
 ## Protractor
 
 If you've been in the Angular world for long enough, you'll probably remember about the [Angular Scenario Runner]
@@ -84,12 +89,160 @@ your tests. Make sure to always read the changelog before updating to a newer or
 
 ## Page Objects
 
+As mentioned earlier, e2e tests cover the interaction scenarios between the end user and your application. This works by
+having the test code simulate a series of user actions against certain UI parts of your application and then making some
+assertions regarding what the expected result of those actions should be.
+
+So let's assume we have a very simple application that can answer any questions a user might have. Let's call it the
+"Grandfather of All Knowledge" app. The idea of the app is pretty straightforward: the user enters a question in an input
+field, presses a button and gets the answer to it. Easy! ... and clever if you get the right answer ;)
+
+The HTML markup for the application would look something like this:
+
+```html
+  <body ng-app="GrandfatherOfAllKnowledgeApp">
+    <div class="question">
+      <input class="question__field" ng-model="question.text"
+             placeholder="What would you like to ask the grandfather of all knowledge?">
+      <button class="question__button" ng-click="answerQuestion()" ng-disabled="!question.text">?</button>
+    </div>
+    <div class="answer">{{answer}}</div>
+  </body>
+  ```
+
+The e2e tests in this case should cover exactly the interaction we described earlier: user enters question, presses
+button and gets an answer. They would look something like this:
+
+```javascript
+  describe("The grandfather of all knowledge module", function() {
+
+      beforeEach(function() {
+          browser.get('/#/grandfather-of-all-knowledge');
+      });
+
+      it('should answer any question the user enters', function() {
+          var question = element(by.model('question.text'));
+          var answer = element(by.binding('answer'));
+          var button = element(by.className('question__button'));
+
+          question.sendKeys("What is the purpose of meaning?");
+          button.click();
+          expect(answer.getText()).toEqual("Keep calm and carry on! This is my answer to you");
+      });
+
+      it('should not allow the user to ask empty questions', function() {
+          var question = element(by.model('question.text'));
+          var answer = element(by.binding('answer'));
+          var button = element(by.className('question__button'));
+
+          question.sendKeys("    ");
+          expect(button.isEnabled()).toBeFalsy();
+      });
+  });
+```
+
+Now, the fact that we are declaring the question/answer/button elements in each spec, is of course pretty inconvenient
+and wasteful. Instead of having this duplicate code throughout all our tests, let's be a little smarter than that and
+refactor them to the following:
+
+```javascript
+  describe("The grandfather of all knowledge module", function() {
+
+      var question = element(by.model('question.text'));
+      var answer = element(by.binding('answer'));
+      var button = element(by.className('question__button'));
+
+      beforeEach(function() {
+          browser.get('/#/grandfather-of-all-knowledge');
+      });
+
+      it('should answer any question the user enters', function() {
+          question.sendKeys("What is the purpose of meaning?");
+          button.click();
+          expect(answer.getText()).toEqual("Keep calm and carry on! This is my answer to you");
+      });
+
+      it('should not allow the user to ask empty questions', function() {
+          question.sendKeys("    ");
+          expect(button.isEnabled()).toBeFalsy();
+      });
+  });
+```
+
+This is already better, but if you look closer, you'll come to realise that our tests are dealing with several different
+concerns at the same time: keeping track of the page under test, selecting elements from that page,
+defining the interaction with these elements, making the assertions and so on. Furthermore, imagine that the markup of
+the tested page changes, so for instance the class of our button would change from "question__button" to just simply
+"button". This would mean that we would have to revisit all the places in our tests where we declared the button and make
+sure its selector uses the correct class name. For large code bases, but not even, this is simply not maintainable and
+for sure not something that you want to deal with.
+
+//TODO add links to original texts
+This is precisely the point where Page Objects will come to the rescue. Page Object is a design pattern that is largely
+used in test automation for enhancing test maintenance and reducing code duplication(4). Think of a Page Objects as the
+API of the UI your tests interact with. Page Objects are responsible of abstracting away the implementation details of
+your UI from your tests, and simply provide an interface which should allow a software client do anything and see anything
+the user can(6).
+
+Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look:
+
+```javascript
+  var GrandfatherOfAllKnowledge = function() {
+      this.question = element(by.model('question.text'));
+      this.answer = element(by.binding('answer'));
+      this.button = element(by.className('question__button'));
+
+      this.setQuestion = function(text) {
+          this.question.sendKeys(text);
+      };
+
+      this.askQuestion = function() {
+          this.button.click();
+      };
+
+      this.getAnswer = function() {
+          return this.answer.getText();
+      };
+  };
+```
+
+```javascript
+  var GrandfatherOfAllKnowledge = require('./grandfatherPO.js').GrandfatherOfAllKnowledge;
+
+  describe("The grandfather of all knowledge module", function() {
+
+      var grandfatherOfAllKnowledge = new GrandfatherOfAllKnowledge();
+
+      beforeEach(function() {
+          browser.get('/#/grandfather-of-all-knowledge');
+      });
+
+      it('should answer any question the user enters', function() {
+          grandfatherOfAllKnowledge.setQuestion("What is the purpose of meaning?");
+          grandfatherOfAllKnowledge.askQuestion();
+          expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Keep calm and carry on! This is my answer to you");
+      });
+
+      it('should not allow the user to ask empty questions', function() {
+          grandfatherOfAllKnowledge.setQuestion("    ");
+          expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
+      });
+  });
+```
+
+
+
 ## Helper Classes
 
 ## Useful Links
 ###### Unit Testing
-  * [Karma](http://karma-runner.github.io/)
-  * [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
+  (1) [Karma](http://karma-runner.github.io/)
+  (2) [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
 
 ###### E2E Testing
-  * [Protractor](http://angular.github.io/protractor)
+  (3) [Protractor](http://angular.github.io/protractor)
+
+###### Page Objects
+  (4) [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
+  (5) [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
+  (6) [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
