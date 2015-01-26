@@ -108,6 +108,8 @@ field, presses a button and gets the answer to it. Easy! ... and clever if you g
 The HTML markup for the application would look something like this:
 
 ```html
+  <!-- grandfather.html -->
+
   <body ng-app="GrandfatherOfAllKnowledgeApp">
     <div class="question">
       <input class="question__field" ng-model="question.text"
@@ -123,6 +125,8 @@ The e2e tests in this case should cover exactly the interaction we described ear
 button and gets an answer. They would look something like this:
 
 ```javascript
+  /* grandfatherSpec.js */
+
   describe("The grandfather of all knowledge module", function() {
 
       beforeEach(function() {
@@ -155,6 +159,8 @@ and wasteful. Instead of having this duplicate code throughout all our tests, le
 refactor them to the following:
 
 ```javascript
+  /* grandfatherSpec.js */
+
   describe("The grandfather of all knowledge module", function() {
 
       var question = element(by.model('question.text'));
@@ -196,6 +202,8 @@ the user can(6).
 Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look:
 
 ```javascript
+  /* grandfatherPageObject.js */
+
   var GrandfatherOfAllKnowledge = function() {
       this.question = element(by.model('question.text'));
       this.answer = element(by.binding('answer'));
@@ -216,6 +224,8 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
 ```
 
 ```javascript
+  /* grandfatherSpec.js */
+
   var GrandfatherOfAllKnowledge = require('./grandfatherPageObject');
 
   describe("The grandfather of all knowledge module", function() {
