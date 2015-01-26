@@ -111,8 +111,9 @@ The HTML markup for the application would look something like this:
   <body ng-app="GrandfatherOfAllKnowledgeApp">
     <div class="question">
       <input class="question__field" ng-model="question.text"
-             placeholder="What would you like to ask the grandfather of all knowledge?">
-      <button class="question__button" ng-click="answerQuestion()" ng-disabled="!question.text">?</button>
+             placeholder="What would you like to ask Grandfather of all knowledge?">
+      <button class="question__button" ng-click="answerQuestion()"
+              ng-disabled="!question.text">?</button>
     </div>
     <div class="answer">{{answer}}</div>
   </body>
@@ -128,17 +129,17 @@ button and gets an answer. They would look something like this:
           browser.get('/#/grandfather-of-all-knowledge');
       });
 
-      it('should answer any question the user enters', function() {
+      it('should answer any question', function() {
           var question = element(by.model('question.text'));
           var answer = element(by.binding('answer'));
           var button = element(by.className('question__button'));
 
           question.sendKeys("What is the purpose of meaning?");
           button.click();
-          expect(answer.getText()).toEqual("Keep calm and carry on! This is my answer to you");
+          expect(answer.getText()).toEqual("Chocolate!");
       });
 
-      it('should not allow the user to ask empty questions', function() {
+      it('should not answer empty questions', function() {
           var question = element(by.model('question.text'));
           var answer = element(by.binding('answer'));
           var button = element(by.className('question__button'));
@@ -164,13 +165,13 @@ refactor them to the following:
           browser.get('/#/grandfather-of-all-knowledge');
       });
 
-      it('should answer any question the user enters', function() {
+      it('should answer any question', function() {
           question.sendKeys("What is the purpose of meaning?");
           button.click();
-          expect(answer.getText()).toEqual("Keep calm and carry on! This is my answer to you");
+          expect(answer.getText()).toEqual("Chocolate!");
       });
 
-      it('should not allow the user to ask empty questions', function() {
+      it('should not answer empty questions', function() {
           question.sendKeys("    ");
           expect(button.isEnabled()).toBeFalsy();
       });
@@ -215,7 +216,7 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
 ```
 
 ```javascript
-  var GrandfatherOfAllKnowledge = require('./grandfatherPO.js').GrandfatherOfAllKnowledge;
+  var GrandfatherOfAllKnowledge = require('./grandfatherPageObject');
 
   describe("The grandfather of all knowledge module", function() {
 
@@ -225,13 +226,13 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
           browser.get('/#/grandfather-of-all-knowledge');
       });
 
-      it('should answer any question the user enters', function() {
+      it('should answer any question', function() {
           grandfatherOfAllKnowledge.setQuestion("What is the purpose of meaning?");
           grandfatherOfAllKnowledge.askQuestion();
-          expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Keep calm and carry on! This is my answer to you");
+          expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Chocolate!");
       });
 
-      it('should not allow the user to ask empty questions', function() {
+      it('should not answer empty questions', function() {
           grandfatherOfAllKnowledge.setQuestion("    ");
           expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
       });
