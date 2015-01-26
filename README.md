@@ -192,12 +192,11 @@ the tested page changes, so for instance the class of our button would change fr
 sure its selector uses the correct class name. For large code bases, but not even, this is simply not maintainable and
 for sure not something that you want to deal with.
 
-//TODO add links to original texts
 This is precisely the point where Page Objects will come to the rescue. Page Object is a design pattern that is largely
-used in test automation for enhancing test maintenance and reducing code duplication(4). Think of a Page Objects as the
-API of the UI your tests interact with. Page Objects are responsible of abstracting away the implementation details of
-your UI from your tests, and simply provide an interface which should allow a software client do anything and see anything
-the user can(6).
+used in test automation for enhancing test maintenance and reducing code duplication [(4)](#page-objects-1). Think of a
+Page Objects as the API of the UI your tests interact with. Page Objects are responsible of abstracting away the
+implementation details of your UI from your tests, and simply provide an interface which should allow a software client
+do anything and see anything the user can [(6)](#page-objects-1).
 
 Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look:
 
