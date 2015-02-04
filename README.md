@@ -468,8 +468,9 @@ With these basic concepts out of the way, time for some Page Object related best
    ```
 #### Rule PO-004
   * Do not add any assertions in your Page Object definitions.
-  
+
   **Why?:** Because, as Martin Fowler puts it:
+  
     *Page objects are commonly used for testing, but should not make assertions themselves. Their responsibility is to
     provide access to the state of the underlying page. It's up to test clients to carry out the assertion logic.*
 
