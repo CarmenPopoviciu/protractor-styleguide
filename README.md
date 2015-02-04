@@ -58,11 +58,10 @@ Coming back to our previous car example, e2e testing would mean checking that al
 with each other and have the expected behavior as an overall, so for instance that the break lights turn on when the
 driver steps on the breaks or that the wheels start turning when the driver steps on the acceleration pedal, and so on.
 
-Again, it is very important to keep in mind, that just like with unit tests, e2e tests are black-box tests and only
-care about the functionality of the application from an end user point of view. Whether or not the services around the
-application work properly, or that responses from the server are correct, and so on, is outside the scope of e2e testing
-and should be handled as separate tests, which we will not cover in this article. Rule of thumb is again to mock all
-these dependencies.
+Again, it is very important to keep in mind that e2e tests are black-box tests and only care about the functionality of
+the application from an end user point of view. Whether or not the services around the application work properly, or that
+responses from the server are correct, and so on, is outside the scope of e2e testing and should be handled as separate
+tests, which we will not cover in this article. Rule of thumb is again to mock all these dependencies.
 
 //TODO add mention here that ppl could also let all the calls go through
 // make clear that ppl understand that the point of e2e testing is not to test your services and api calls but rather
@@ -84,16 +83,16 @@ of WebDriverJS, which adds some Angular-specific functionality.
 // TODO what more do we want to say here?
 
 **One word of advice!** New versions of Protractor can sometimes come with breaking changes, which might, well, break
-your tests. Make sure to always read the changelog before updating to a newer or the latest version!
+your tests. Make sure to ALWAYS read the changelog before updating to a newer or the latest version!
 
 ### One config file to rule them all
 
   - Create one protractor.conf.js file. You can create spin-offs using grunt (or an other task runner).
 
-Any protractor test suite starts out with a protractor.conf.js file, which, as the name suggests, configuration code for
-protractor written out in javascript. When you want to test different test tasks (targets), its easy to create copies of
-the conf file. You shouldn't do that. Just because a file contains config, doesn't mean that it isn't code and thus
-you should treat it as if it is production code. Code duplication is not acceptable.
+Any protractor test suite starts out with a protractor.conf.js file, which basically is, as the name suggests,
+configuration code for protractor written out in javascript. When you want to test different test tasks (targets), its
+easy to create copies of the conf file. You shouldn't do that. Just because a file contains config, doesn't mean that it
+isn't code and thus you should treat it as if it is production code. Code duplication is not acceptable.
 
 ## Page Objects
 
@@ -101,9 +100,9 @@ As mentioned earlier, e2e tests cover the interaction scenarios between the end 
 having the test code simulate a series of user actions against certain UI parts of your application and then making some
 assertions regarding what the expected result of those actions should be.
 
-So let's assume we have a very simple application that can answer any questions a user might have. Let's call it the
-"Grandfather of All Knowledge" app. The idea of the app is pretty straightforward: the user enters a question in an input
-field, presses a button and gets the answer to it. Easy! ... and clever if you get the right answer ;)
+So let's assume we have a very simple application that can answer any possible question. Let's call it the "Grandfather
+of All Knowledge" app. The idea of the app is pretty straightforward: the user enters a question in an input field,
+presses a button and gets the answer to the question. Easy! ... and clever if you get the right answer ;)
 
 The HTML markup for the application would look something like this:
 
@@ -154,9 +153,8 @@ button and gets an answer. They would look something like this:
   });
 ```
 
-Now, the fact that we are declaring the question/answer/button elements in each spec, is of course pretty inconvenient
-and wasteful. Instead of having this duplicate code throughout all our tests, let's be a little smarter than that and
-refactor them to the following:
+Now, the fact that we are declaring the question/answer/button elements in each spec, adds a lot of duplicate code to our
+tests, and as we all know, duplicate code means we're doing something not quite right. Let's fix that!
 
 ```javascript
   /* grandfatherSpec.js */
@@ -184,8 +182,8 @@ refactor them to the following:
   });
 ```
 
-This is already better, but if you look closer, you'll come to realise that our tests are dealing with several different
-concerns at the same time: keeping track of the page under test, selecting elements from that page,
+This is already better, but we can do even better than that. If you look at the tests we wrote, notice that they are
+dealing with multiple concerns at the same time: keeping track of the page under test, selecting elements from that page,
 defining the interaction with these elements, making the assertions and so on. Furthermore, imagine that the markup of
 the tested page changes, so for instance the class of our button would change from "question__button" to just simply
 "button". This would mean that we would have to revisit all the places in our tests where we declared the button and make
@@ -249,11 +247,14 @@ Much cleaner right? So now, with a proper Page Object in place, we can just focu
 that we have to run around fixing them every time the HTML markup under test changes. The only thing to take care of is
 keeping the Page Object definition in sync with its corresponding part of the UI.
 
+With these basic concepts out of the way, time for some Page Object related best practices ;)
+
 
 #### Rule PO-001
   * *UpperCamelCase* the names of your Page Objects
-    **Why?:** Because by definition, a Page Object is an object-oriented class and therefore all class naming conventions
-    apply to it
+
+  **Why?:** Because by definition, a Page Object is an object-oriented class and therefore all class naming conventions
+  apply to it
 
     ```javascript
       /* avoid */
@@ -270,8 +271,9 @@ keeping the Page Object definition in sync with its corresponding part of the UI
     ```
 #### Rule PO-002 (?)
   * Pick a descriptive naming convention for your page Object files and stick with it
-   **Why?:** This will ensure that your Page Object related files are easily recognisable and distinguishable from all
-   the other files in the project.
+
+  **Why?:** This will ensure that your Page Object related files are easily recognisable and distinguishable from all
+  the other files in the project.
 
    ```
       /* avoid */
@@ -283,7 +285,7 @@ keeping the Page Object definition in sync with its corresponding part of the UI
                     |-- homeSpec.js
                 |-- profile
                     |-- profile.js
-                    |-- profileSpe.js
+                    |-- profileSpec.js
                 |-- contacts
                     |-- contacts.js
                     |-- contactsSpec.js
@@ -302,7 +304,7 @@ keeping the Page Object definition in sync with its corresponding part of the UI
                  |-- homeSpec.js
              |-- profile
                  |-- profilePageObject.js
-                 |-- profileSpe.js
+                 |-- profileSpec.js
              |-- contacts
                  |-- contactsPageObject.js
                  |-- contactsSpec.js
@@ -317,8 +319,8 @@ keeping the Page Object definition in sync with its corresponding part of the UI
   project using the new recommended Angular app structure [(1)](#angularjs), you should group the spec and Page Object
   files per each section defined in your app structure.
 
-   **Why?:** Because finding your test and Page Object files should be intuitive and easy to anyone working with the
-   project.
+  **Why?:** Because finding your test and Page Object files should be intuitive and easy to anyone working with the
+  project.
 
   // TODO would be nice to have both "to avoid" & "recommended" structures next to each other for easier comparison
    #### Small scale Angular apps
@@ -451,7 +453,6 @@ keeping the Page Object definition in sync with its corresponding part of the UI
          |-- unit
          |-- e2e
              |-- home
-             homeSpec.js
                    homePageObject.js
                    homeSpec.js
              |-- profile
