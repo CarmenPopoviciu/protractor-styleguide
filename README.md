@@ -190,15 +190,15 @@ defining the interaction with these elements, making the assertions and so on. F
 the tested page changes, so for instance the class of our button would change from "question__button" to just simply
 "button". This would mean that we would have to revisit all the places in our tests where we declared the button and make
 sure its selector uses the correct class name. For large code bases, but not even, this is simply not maintainable and
-for sure not something that you want to deal with.
+for sure not something you want to worry about.
 
-This is precisely the point where Page Objects will come to the rescue. Page Object is a design pattern that is largely
-used in test automation for enhancing test maintenance and reducing code duplication [(4)](#page-objects-1). Think of a
-Page Objects as the API of the UI your tests interact with. Page Objects are responsible of abstracting away the
+This is precisely the point where **Page Objects** will come to the rescue. Page Object is a design pattern that is largely
+used in test automation for enhancing test maintenance and reducing code duplication [(5)](#page-objects-1). Think of a
+Page Object as the API of the UI your tests interact with. Page Objects are responsible of abstracting away the
 implementation details of your UI from your tests, and simply provide an interface which should allow a software client
-do anything and see anything the user can [(6)](#page-objects-1).
+do anything and see anything the user can [(7)](#page-objects-1).
 
-Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look:
+Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look like:
 
 ```javascript
   /* grandfatherPageObject.js */
@@ -208,11 +208,8 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
       this.answer = element(by.binding('answer'));
       this.button = element(by.className('question__button'));
 
-      this.setQuestion = function(text) {
-          this.question.sendKeys(text);
-      };
-
-      this.askQuestion = function() {
+      this.askQuestion = function(question) {
+          this.question.sendKeys(question);
           this.button.click();
       };
 
@@ -236,31 +233,257 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
       });
 
       it('should answer any question', function() {
-          grandfatherOfAllKnowledge.setQuestion("What is the purpose of meaning?");
-          grandfatherOfAllKnowledge.askQuestion();
+          grandfatherOfAllKnowledge.askQuestion("What is the purpose of meaning?");
           expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Chocolate!");
       });
 
       it('should not answer empty questions', function() {
-          grandfatherOfAllKnowledge.setQuestion("    ");
+          grandfatherOfAllKnowledge.askQuestion("    ");
+          expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("");
           expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
       });
   });
 ```
 
+Much cleaner right? So now, with a proper Page Object in place, we can just focus on writing our tests, without worrying
+that we have to run around fixing them every time the HTML markup under test changes. The only thing to take care of is
+keeping the Page Object definition in sync with its corresponding part of the UI.
 
+
+#### Rule PO-001
+  * *UpperCamelCase* the names of your Page Objects
+    **Why?:** Because by definition, a Page Object is an object-oriented class and therefore all class naming conventions
+    apply to it
+
+    ```javascript
+      /* avoid */
+      var grandfatherOfAllKnowledge = function() {/*...*/};
+      var grandfather-of-all-knowledge = function() {/*...*/};
+      var grandfather_of_all_knowledge = function() {/*...*/};
+    ```
+
+    ```javascript
+      /* recommended */
+      var GrandfatherOfAllKnowledge = function() {
+        /*...*/
+      };
+    ```
+#### Rule PO-002 (?)
+  * Pick a descriptive naming convention for your page Object files and stick with it
+   **Why?:** This will ensure that your Page Object related files are easily recognisable and distinguishable from all
+   the other files in the project.
+
+   ```
+      /* avoid */
+        |-- test
+            |-- unit
+            |-- e2e
+                |-- home
+                    |-- home.js
+                    |-- homeSpec.js
+                |-- profile
+                    |-- profile.js
+                    |-- profileSpe.js
+                |-- contacts
+                    |-- contacts.js
+                    |-- contactsSpec.js
+                |-- archive
+                    |-- archive.js
+                    |-- archiveSpec.js
+   ```
+
+   ```
+   /* recommended */
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- home
+                 |-- homePageObject.js
+                 |-- homeSpec.js
+             |-- profile
+                 |-- profilePageObject.js
+                 |-- profileSpe.js
+             |-- contacts
+                 |-- contactsPageObject.js
+                 |-- contactsSpec.js
+             |-- archive
+                 |-- archivePageObject.js
+                 |-- archiveSpec.js
+   ```
+#### Rule PO-003
+  * Group your e2e tests and Page Object files in a structure that makes sense to the structure of your project. So for
+  instance, if you are working on a small project and are using the old recommended scaffolding [(1)](#angularjs), group
+  all your Page Object files in one folder, separately from the test files. However, if you are working on a larger scale
+  project using the new recommended Angular app structure [(1)](#angularjs), you should group the spec and Page Object
+  files per each section defined in your app structure.
+
+   **Why?:** Because finding your test and Page Object files should be intuitive and easy to anyone working with the
+   project.
+
+  // TODO would be nice to have both "to avoid" & "recommended" structures next to each other for easier comparison
+   #### Small scale Angular apps
+   ```
+   /* avoid */
+   |-- project-folder
+     |-- app
+         |-- css
+         |-- img
+         |-- partials
+             home.html
+             profile.html
+             contacts.html
+         |-- js
+             |-- controllers
+             |-- directives
+             |-- services
+             app.js
+             ...
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             homePageObject.js
+             homeSpec.js
+             profilePageObject.js
+             profileSpec.js
+             contactsPageObject.js
+             contactsSpec.js
+   ```
+
+   ```
+   /* recommended */
+   |-- project-folder
+     |-- app
+         |-- css
+         |-- img
+         |-- partials
+               home.html
+               profile.html
+               contacts.html
+         |-- js
+             |-- controllers
+             |-- directives
+             |-- services
+             app.js
+             ...
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- page-objects
+                   homePageObject.js
+                   profilePageObject.js
+                   contactsPageObject.js
+             homeSpec.js
+             profileSpec.js
+             contactsSpec.js
+   ```
+
+   #### Large scale Angular apps
+   ```
+   /* avoid */
+   |-- project-folder
+     |-- app
+         |-- home
+               home.css
+               home.html
+               home.js
+         |-- profile
+               profile.css
+               profile.html
+               profile.js
+         |-- contacts
+               contacts.css
+               contacts.html
+               contacts.js
+         |-- components
+             |-- avatar
+                   avatar.js
+                   avatar-directive.js
+             |-- pane
+                   pane.js
+                   pane-directive.js
+         app.js
+         app-controller.js
+         app.css
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             homePageObject.js
+             homeSpec.js
+             profilePageObject.js
+             profileSpec.js
+             contactsPageObject.js
+             contactsSpec.js
+             avatarPageObject.js
+             avatarSpec.js
+   ```
+
+   ```
+   /* recommended */
+   |-- project-folder
+     |-- app
+         |-- home
+               home.css
+               home.html
+               home.js
+         |-- profile
+               profile.css
+               profile.html
+               profile.js
+         |-- contacts
+               contacts.css
+               contacts.html
+               contacts.js
+         |-- components
+             |-- avatar
+                   avatar.js
+                   avatar-directive.js
+             |-- pane
+                   pane.js
+                   pane-directive.js
+         app.js
+         app-controller.js
+         app.css
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- home
+             homeSpec.js
+                   homePageObject.js
+                   homeSpec.js
+             |-- profile
+                   profilePageObject.js
+                   profileSpec.js
+             |-- contacts
+                   contactsPageObject.js
+                   contactsSpec.js
+             |-- components
+                 |-- avatar
+                       avatarPageObject.js
+                       avatarSpec.js
+   ```
+#### Rule PO-004
+  * Do not add any assertions in your Page Object definitions.
+  **Why?:** Because, as Martin Fowler puts it:
+    *Page objects are commonly used for testing, but should not make assertions themselves. Their responsibility is to
+    provide access to the state of the underlying page. It's up to test clients to carry out the assertion logic.*
 
 ## Helper Classes
 
 ## Useful Links
+###### AngularJS
+  (1) [Angular App Structure](http://angularjs.blogspot.nl/2014/02/an-angularjs-style-guide-and-best.html)
 ###### Unit Testing
-  (1) [Karma](http://karma-runner.github.io/)
-  (2) [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
+  (2) [Karma](http://karma-runner.github.io/)
+  (3) [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
 
 ###### E2E Testing
-  (3) [Protractor](http://angular.github.io/protractor)
+  (4) [Protractor](http://angular.github.io/protractor)
 
 ###### Page Objects
-  (4) [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
-  (5) [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
-  (6) [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
+  (5) [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
+  (6) [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
+  (7) [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
