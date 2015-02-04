@@ -16,4 +16,4 @@ var GrandfatherOfAllKnowledge = function() {
 };
 
 // figure this one out
-module.exports = GrandfatherOfAllKnowledge //= exports??;
+module.exports = GrandfatherOfAllKnowledge; //= exports??;
