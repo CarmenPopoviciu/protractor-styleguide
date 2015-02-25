@@ -15,7 +15,7 @@ describe("The grandfather of all knowledge module", function() {
         expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Chocolate!");
     });
 
-    it('should not answer empty questions', function() {
+    it('should not be able to ask an empty question', function() {
         grandfatherOfAllKnowledge.askQuestion("    ");
         expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("");
         expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();

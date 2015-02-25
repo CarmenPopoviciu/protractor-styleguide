@@ -3,6 +3,11 @@ body {
     padding-bottom: 20px;
 }
 
+.container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container__header,
 .container__footer {
     padding-left: 15px;
@@ -23,6 +28,7 @@ body {
 .container__body {
     padding-top: 15px;
     padding-bottom: 15px;
+    text-align: center;
 }
 
 .container__footer {

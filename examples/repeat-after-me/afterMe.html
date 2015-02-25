@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <span>{{sequence}}</span> |
+        <span ng-class="{green: isAMatch(), red: !isAMatch()}">{{userSequence}}</span>
+    </div>
+
+    <div class="key-group">
+        <button ng-click="updateUserSequence(1)" ng-disabled="disableButton()">1</button>
+        <button ng-click="updateUserSequence(2)" ng-disabled="disableButton()">2</button>
+        <button ng-click="updateUserSequence(3)" ng-disabled="disableButton()">3</button>
+    </div>
+    <div class="key-group">
+        <button ng-click="updateUserSequence(4)" ng-disabled="disableButton()">4</button>
+        <button ng-click="updateUserSequence(5)" ng-disabled="disableButton()">5</button>
+        <button ng-click="updateUserSequence(6)" ng-disabled="disableButton()">6</button>
+    </div>
+    <div class="key-group">
+        <button ng-click="updateUserSequence(7)" ng-disabled="disableButton()">7</button>
+        <button ng-click="updateUserSequence(8)" ng-disabled="disableButton()">8</button>
+        <button ng-click="updateUserSequence(9)" ng-disabled="disableButton()">9</button>
+    </div>
+
+    <div class="key-group">
+        <button class="reset" ng-click="resetSequence()">Try again</button>
+    </div>
+</div>
