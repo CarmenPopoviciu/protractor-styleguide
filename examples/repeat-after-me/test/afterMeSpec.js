@@ -47,4 +47,20 @@ describe("The repeat after me module", function() {
         });
         expect(afterMePageObject.userSequenceElement.getAttribute('class')).toContain('red');
     });
+
+    it('should disable all key buttons once the user finished typing the sequence', function() {
+        afterMePageObject.getSequenceDigitByIndex(0).then(function(value) {
+            afterMePageObject.clickButtonWithIndex(value-1);
+        });
+        afterMePageObject.getSequenceDigitByIndex(1).then(function(value) {
+            afterMePageObject.clickButtonWithIndex(value-1);
+        });
+        afterMePageObject.getSequenceDigitByIndex(2).then(function(value) {
+            afterMePageObject.clickButtonWithIndex(value-1);
+        });
+
+        afterMePageObject.buttons.each(function(buttonElem) {
+            expect(buttonElem.getAttribute('disabled')).toBeTruthy();
+        });
+    });
 });

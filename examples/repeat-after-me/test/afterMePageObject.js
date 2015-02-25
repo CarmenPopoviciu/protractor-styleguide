@@ -2,10 +2,10 @@
 
 var AfterMePageObject = function() {
     var container = element(by.css("div"));
-    var buttons = container.all(by.css('button[ng-disabled="disableButton()"]'));
 
     this.sequenceElement = container.element(by.binding("sequence"));
     this.userSequenceElement = container.element(by.binding("userSequence"));
+    this.buttons = container.all(by.css('button[ng-disabled="disableButton()"]'));
 
     this.getSequence = function() {
         return this.sequenceElement.getText();
@@ -26,7 +26,7 @@ var AfterMePageObject = function() {
     };
 
     this.clickButtonWithIndex = function(index) {
-        buttons.get(index).click();
+        this.buttons.get(index).click();
     };
 };
 
