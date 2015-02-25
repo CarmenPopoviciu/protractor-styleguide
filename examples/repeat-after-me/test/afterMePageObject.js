@@ -2,7 +2,7 @@
 
 var AfterMePageObject = function() {
     var container = element(by.css("div"));
-    var buttons = container.all(by.css("button"));
+    var buttons = container.all(by.css('button[ng-disabled="disableButton()"]'));
 
     this.sequenceElement = container.element(by.binding("sequence"));
     this.userSequenceElement = container.element(by.binding("userSequence"));
@@ -23,10 +23,6 @@ var AfterMePageObject = function() {
             d.fulfill(digit);
         });
         return d.promise;
-    };
-
-    this.getButtonsCount = function() {
-        return buttons.count();
     };
 
     this.clickButtonWithIndex = function(index) {

@@ -26,23 +26,23 @@ describe("The repeat after me module", function() {
     });
 
     it("should highlight the user entered sequence in red if it doesn't match the original sequence", function() {
-        var buttonsCount = afterMePageObject.getButtonsCount();
+        var maxAllowedDigit = 9;
         var btnIndex;
 
         afterMePageObject.getSequenceDigitByIndex(0).then(function(value) {
-            btnIndex = (value===buttonsCount) ? (value-2) : value;
+            btnIndex = (value===maxAllowedDigit) ? (value-2) : value;
             afterMePageObject.clickButtonWithIndex(btnIndex);
         });
         expect(afterMePageObject.userSequenceElement.getAttribute('class')).toContain('red');
 
-        afterMePageObject.getSequenceDigitByIndex(0).then(function(value) {
-            btnIndex = (value===buttonsCount) ? (value-2) : value;
+        afterMePageObject.getSequenceDigitByIndex(1).then(function(value) {
+            btnIndex = (value===maxAllowedDigit) ? (value-2) : value;
             afterMePageObject.clickButtonWithIndex(btnIndex);
         });
         expect(afterMePageObject.userSequenceElement.getAttribute('class')).toContain('red');
 
-        afterMePageObject.getSequenceDigitByIndex(0).then(function(value) {
-            btnIndex = (value===buttonsCount) ? (value-2) : value;
+        afterMePageObject.getSequenceDigitByIndex(2).then(function(value) {
+            btnIndex = (value===maxAllowedDigit) ? (value-2) : value;
             afterMePageObject.clickButtonWithIndex(btnIndex);
         });
         expect(afterMePageObject.userSequenceElement.getAttribute('class')).toContain('red');
