@@ -77,7 +77,7 @@ to not continue with its development and provide a better solution on the long t
 Runner is deprecated and in maintenance mode, so in case you are using it in your application, you might want to
 reconsider.
 
-The "new" tool for e2e testing your AngularJS application is Protractor. Protractor is an e2e test framework build on top
+The "new" tool for e2e testing your AngularJS application is Protractor. Protractor is an e2e test framework built on top
 of WebDriverJS, which adds some Angular-specific functionality.
 
 // TODO what more do we want to say here?
