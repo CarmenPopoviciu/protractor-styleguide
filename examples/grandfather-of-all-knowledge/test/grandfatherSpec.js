@@ -7,7 +7,7 @@ describe("The grandfather of all knowledge module", function() {
     var grandfatherOfAllKnowledge = new GrandfatherOfAllKnowledge();
 
     beforeEach(function() {
-        browser.get('/#/grandfather-of-all-knowledge');
+        browser.get('/examples/grandfather-of-all-knowledge/');
     });
 
     it('should answer any question', function() {

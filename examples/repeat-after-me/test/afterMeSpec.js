@@ -8,7 +8,7 @@ describe("The repeat after me module", function() {
     var afterMePageObject = new AfterMePageObject();
 
     beforeEach(function() {
-        browser.get('/#/repeat-after-me');
+        browser.get('/examples/repeat-after-me/');
     });
 
     it("should highlight the user entered sequence in green if matching the original sequence", function() {

@@ -1,0 +1,38 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Protractor Testing Guidelines</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="../examples.css">
+        <link rel="stylesheet" href="grandfather.css">
+        
+		<script src="/bower_components/angular/angular.js"></script>
+        <script src="grandfather.js"></script> 
+    </head>
+
+    <body ng-app="pgGrandfatherOfAllKnowledge" ng-controller="GrandfatherCtrl">
+
+        <div class="container">
+            <div class="container__header"></div>
+
+            <div class="container__body">
+			
+				<div>
+					<div class="question">
+						<input class="question__field" ng-model="question.text"
+							   placeholder="What would you like to ask the grandfather of all knowledge?">
+						<button class="question__button" ng-click="answerQuestion()" ng-disabled="!question.text">?</button>
+					</div>
+					<div class="answer" ng-bind="answer"></div>
+				</div>
+			
+			</div>
+			
+		    <div class="container__footer"></div>
+			
+        </div>
+    </body>
+</html>
