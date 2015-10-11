@@ -1,16 +1,22 @@
-'use strict';
+(function() {
 
-/**
- *
- */
-angular.module('pgGrandfatherOfAllKnowledge', [])
-    .controller("GrandfatherCtrl", GrandfatherCtrl);
+	'use strict';
 
-function GrandfatherCtrl($scope) {
-    $scope.question = {};
-    $scope.answer = '';
+	angular
+		.module('pgGrandfatherOfAllKnowledge', [])
+		.controller("GrandfatherCtrl", GrandfatherCtrl);
 
-    $scope.answerQuestion = function() {
-        $scope.answer = "Chocolate!";
-    }
-}
+	function GrandfatherCtrl($scope) {
+		$scope.question = {};
+		$scope.answer = '';
+
+		$scope.answerQuestion = function() {
+			$scope.answer = "Chocolate!";
+		};
+		
+		$scope.inputFocus = function() {
+			$scope.answer = '';
+		};
+	}
+	
+})();

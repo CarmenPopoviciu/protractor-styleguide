@@ -6,7 +6,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="../examples.css">
         <link rel="stylesheet" href="grandfather.css">
         
 		<script src="/bower_components/angular/angular.js"></script>
@@ -22,7 +21,7 @@
 			
 				<div>
 					<div class="question">
-						<input class="question__field" ng-model="question.text"
+						<input class="question__field" ng-model="question.text" ng-focus="inputFocus()"
 							   placeholder="What would you like to ask the grandfather of all knowledge?">
 						<button class="question__button" ng-click="answerQuestion()" ng-disabled="!question.text">?</button>
 					</div>
