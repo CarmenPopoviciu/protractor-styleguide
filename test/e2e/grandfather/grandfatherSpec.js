@@ -7,7 +7,7 @@ describe("The grandfather of all knowledge module", function() {
     var grandfatherOfAllKnowledge = new GrandfatherOfAllKnowledge();
 
     beforeEach(function() {
-        browser.get('/examples/grandfather-of-all-knowledge/');
+        browser.get('/grandfather-of-all-knowledge/index.html');
     });
 
     it('should answer any question', function() {
@@ -19,5 +19,12 @@ describe("The grandfather of all knowledge module", function() {
         grandfatherOfAllKnowledge.askQuestion("    ");
         expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("");
         expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
+    });
+
+    it('should clear the answer when the questionfield gets focus', function() {
+        grandfatherOfAllKnowledge.askQuestion("What is the last digit of Pi");
+        expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("Chocolate!");
+		grandfatherOfAllKnowledge.question.sendKeys("?");
+		expect(grandfatherOfAllKnowledge.getAnswer()).toEqual("");
     });
 });

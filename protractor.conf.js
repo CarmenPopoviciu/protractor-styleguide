@@ -5,7 +5,7 @@
 
 exports.config = {
     specs: [
-        'examples/*/test/*Spec.js'
+        'test/e2e/**/*Spec.js'
     ],
     capabilities: {
         browserName: 'chrome'

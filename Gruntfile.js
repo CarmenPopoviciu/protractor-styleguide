@@ -1,97 +1,126 @@
 // Generated on 2014-12-08 using generator-angular 0.10.0
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/unit/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/unit/**/*.js'
-
 module.exports = function (grunt) {
 
-    // Load grunt tasks automatically
-    require('load-grunt-tasks')(grunt);
-
-  	grunt.loadNpmTasks('grunt-execute');
+	grunt.loadNpmTasks('grunt-protractor-coverage');
+	grunt.loadNpmTasks('grunt-istanbul');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	
-    // Configurable paths for the application
-    // var appConfig = {
-        // app: require('./bower.json').appPath || 'app',
-        // dist: 'dist'
-    // };
-
-    // Define the configuration for all the tasks
-    grunt.initConfig({
-
-		// grunt-execute is used to start live server via a node script.
-		// (live-server is not a grunt plugin)
-		execute: {
+	var serveStatic = require('serve-static');
+  
+	// Define the configuration for all the tasks
+	grunt.initConfig({
+	
+		connect: {
 			develop: {
-                options: {
-					// open the browser
-					args: [1]
-                },
-				src: ['liveServer.js']
-            },
-            test: {
-                options: {
-					// do not open the browser
-					args: [0]
-                },
-				src: ['liveServer.js']
-            }
+				options: {
+					open:true,
+					keepalive:true,
+					port: 9005,
+					hostname: 'localhost',
+					directory: 'examples',
+					middleware: function (connect) {
+						return [
+							connect().use('/', serveStatic('app')),
+							connect().use('/lib/', serveStatic('bower_components')),
+							connect().use('/', serveStatic('examples'))
+						];
+					}
+				}
+			},
+			e2e: {
+				options: {
+					open:false,
+					port: 9000,
+					hostname: 'localhost',
+					middleware: function (connect) {
+						return [
+							// only the js files are in the instumented folder
+							connect().use('/js/', serveStatic('instrumented/app/js')),
+							
+							connect().use('/lib/', serveStatic('bower_components')),
+							connect().use('/css/', serveStatic('app/css')),
+							connect().use('/', serveStatic('examples'))
+						];
+					}
+				}
+			},
+			results: {
+				options: {
+					open:true,
+					keepalive:true,
+					port: 9010,
+					hostname: 'localhost',
+					middleware: function (connect) {
+						return [
+							connect().use('/', serveStatic('coverage/lcov-report'))
+						];
+					}
+				}
+			}
 		},
 		
-		protractor: {
-            options: {
-                keepAlive: false,
-                noColor: false
-            },
-            e2e: {
-                options: {
-                    configFile: 'protractor.conf.js'
-                }
-            }
-        },
+		instrument: {
+			files: 'app/**/*.js',
+			options: {
+				lazy: true,
+				basePath: "instrumented"
+			}
+		},
 		
-		// TODO add coverage
-		// protractor_coverage: {
-			// options: {
-				// keepAlive: true,
-				// noColor: false,
-				// collectorPort: 3001,
-				// coverageDir: 'coverage',
-				// args: {
-					// baseUrl: 'http://localhost:8080'
-				// }
-			// },
-			// local: {
+		protractor_coverage: {
+			options: {
+				keepAlive: true,
+				noColor: false,    
+				collectorPort: 5670,
+				debug: false,
+				coverageDir: 'coverage',
+				args: {
+					baseUrl: 'http://localhost:9000',
+					specs: ['test/e2e/**/*.spec.js']
+				},
+				configFile: 'protractor.conf.js'
+			},
+			local: {
 				// options: {
 					// configFile: 'protractor.conf.js'
 				// }
-			// }
-		// },
+			}		
+		},
 		
-		// Run some tasks in parallel to speed up the build process
-        concurrent: {
-            protractor: [
-                'execute:test',
-				'protractor'
-            ]
-        }
+		makeReport: {
+			src: 'coverage/*.json',
+			options: {
+				type: 'lcov',
+				dir: 'coverage',
+				print: 'detail'
+			}
+		},
 		
-  
-    });
+		clean: {
+			e2e: [
+				'instrumented',
+				'coverage'
+			]
+		}
+		
+	});
 
-	grunt.registerTask('serve', [
-		'execute:develop'
-	]);
-    
-	grunt.registerTask('runProtractor', [
-		'concurrent:protractor'
-    ]);
 
-	grunt.registerTask('default', [
-        'execute:develop'
+	grunt.registerTask('e2e', [
+		'clean:e2e',
+        'instrument',
+		'connect:e2e',
+		'protractor_coverage:local',
+		'makeReport'
+		// 'connect:results'   uncomment if you want to show the coverage results after the e2e test
     ]);
+   
+	grunt.registerTask('serve', ['connect:develop']);
+   
+	grunt.registerTask('coverage', ['connect:results']);
+   
+   
 };
