@@ -918,9 +918,15 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ## Useful Links
   Karma - http://karma-runner.github.io/
+
   Karma design docs - https://github.com/karma-runner/karma/blob/master/thesis.pdf
+
   [Protractor](http://angular.github.io/protractor)
+
   [GTAC 2010: The Future of Front-End Testing](https://www.youtube.com/watch?v=oX-0Mt5zju0)
+
   [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
+
   [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
+
   [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
