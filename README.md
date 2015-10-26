@@ -31,6 +31,15 @@ you have one that I missed out on, head to the [Contributing](#contributing) sec
 If you want to contribute to this project and make it better, send a pull request or submit an issue and you'll definitely
 get some extra ♥ for your help.
 
+## Video
+
+Andres Dominguez and I gave a talk about this styleguide at [AngularConnect](http://angularconnect.com/) in London. Here's
+the video in case you want to watch it.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=-lTGnYwnEuM
+" target="_blank"><img src="http://img.youtube.com/vi/-lTGnYwnEuM/0.jpg"
+alt="Protractor styleguide @AngularConnect" width="240" height="180" border="10" /></a>
+
 ## Credit
 
 I want to thank Yun, Rene and my awesome team, who have encouraged and supported me in developing this guide as part of
