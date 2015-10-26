@@ -28,8 +28,8 @@ you have one that I missed out on, head to the [Contributing](#contributing) sec
 
 ## Contributing
 
-If you want to contribute to this project and make it better send a pull request or submit an issue and you'll definitely
-get and extra ♥ for your help.
+If you want to contribute to this project and make it better, send a pull request or submit an issue and you'll definitely
+get some extra ♥ for your help.
 
 ## Credit
 
@@ -37,13 +37,13 @@ I want to thank Yun, Rene and my awesome team, who have encouraged and supported
 my work. Special thanks to [Andres](https://twitter.com/andresdom) for sharing his knowledge and contributing to this
 project.
 
-Last but not least, this project wouldn't mean anything without the support and help of the Angular community, which I care
-so much for. -`ღ´-
+Last but not least, this project wouldn't mean anything without the support and help of the Angular community. You are
+awesome! -`ღ´-
 
 
-## One final word... The MOST IMPORTANT THING
+## And one last thing....
 
-#useYourSuperPowersToDoGood
+\#useYourSuperPowersToDoGood
 
 
 ## Table of Contents
@@ -58,7 +58,7 @@ so much for. -`ღ´-
   * [Generic rules](#generic-rules)
   * [Project structure](#project-structure)
   * [Locator strategies](#locator-strategies)
-  * [Page Objects](#page-objects)
+  * [Page Objects](###page-objects)
   * [Test suites](#test-suites)
 5. [Useful Links](#useful-links)
 
@@ -68,7 +68,7 @@ so much for. -`ღ´-
 Before we get into the actual rules and best practices themselves, I would like to take a moment to talk about testing in
 general, what it means and why it is so important in the development process of an application.
 
-If I look back at how I started into testing, I can remember very well that the beginning was anything but easy. At that
+If I look back at how I started with testing, I can remember very well that the beginning was anything but easy. At that
 time, I had a vague idea that it 'must be a good thing', but I didn't fully understand what it was all about. Everything
 seemed overly complicated, time consuming and just a big overhead all in all. This is a sentiment that I have heard many
 times from a lot of developers that start with testing, and it is also something that pushes many of them away from writing
@@ -88,7 +88,7 @@ So why is testing so important ultimately?
 
 Well first of all because tests will tell you if your application is working as it should. In my opinion this is the first
 and most important benefit of having automated tests. Successful tests will give you the confidence that everything
-in your application works as intended. They will give you the confidence that any changes in your codebase, no matter
+in your application runs properly. They will give you the confidence that any changes in your codebase, no matter
 how small and insignificant they might seem at a first glance, don't break the behavior of your system. And all this at
 a very early stage of the development process. Just imagine introducing a set of changes to your codebase and having to
 manually test whether those changes didn't break any other parts of the application. Kind of makes you want to go to
@@ -141,7 +141,7 @@ on when the driver hits the break or if the wheels start turning when the driver
 
 There is a lot of discussion around what parts of an application should or shouldn't be e2e tested and about how a proper
 system under test should be set up. Many developers who start with e2e testing are usually confused about what the 'right'
-way to do things is. Julie Ralph wrote a very nice article about this, that I will link here once it is officially
+way to do things is. Julie Ralph wrote a very good article about this, that I will link here once it is officially
 published, in which she explains very nicely the pros and cons of the options out there.
 
 I for one like to think of e2e testing as testing from the perspective of the end user. Consider an email application for
@@ -157,7 +157,7 @@ If you've been in the Angular world for long enough, you'll probably remember ab
 (https://code.angularjs.org/1.2.16/docs/guide/e2e-testing). The Scenario Runner was originally shipped with Angular as a
 tool to help developers e2e test their application. However, due to some design and maintenance issues, the team decided
 to not continue with its development and provide a better solution on the long term. Currently, the Angular Scenario
-Runner is deprecated and in maintenance mode(last time I checked ;)), so in case you are using it in your application,
+Runner is deprecated and in maintenance mode (last time I checked ;)), so in case you are using it in your application,
 you might want to reconsider.
 
 The "new" tool for e2e testing your AngularJS applications is Protractor. Protractor is an e2e test framework built on top
@@ -257,9 +257,8 @@ the tested page changes, so for instance the class of our button would change fr
 sure the selector is updated to the correct class name. For large code bases, but not only, this is simply not maintainable.
 
 This is precisely the point where **Page Objects** will come to the rescue. Page Object is a design pattern that is largely
-used in test automation for enhancing test maintenance and reducing code duplication [(5)](#page-objects-1). Page Objects
-provide an API to the page under test and are responsible of abstracting away its implementation details from the tests
-themselves.
+used in test automation for enhancing test maintenance and reducing code duplication. Page Objects provide an API to the
+page under test and are responsible of abstracting away its implementation details from the tests themselves.
 
 There is one [explanation](https://www.youtube.com/watch?v=oX-0Mt5zju0) of Page Objects by [Simon Stewart](https://twitter.com/shs96c)
 that I particularly like and that has helped me a lot in understanding and working with the concept better. It goes like
@@ -321,7 +320,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Generic rules
 
-#### Rule #1: Do not cheat on your tests
+###### Rule-01: Do not cheat on your tests
 
   If you're skipping tests or writing dummy ones just to pass that good old coverage check, you're on the road to perdition.
   I'm not necessarily advocating for 100% code coverage, though that would be nice, but at least make sure
@@ -333,7 +332,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * The 'I will test it manually later' thing doesn't work
   * The 'I wrote the code myself, I'm sure it works' thing doesn't work either
 
-#### Rule #2: Prefer unit over e2e tests when possible
+###### Rule-02: Prefer unit over e2e tests when possible
 
   Try to cover as much as possible of your logic with unit tests rather than with e2e tests. If you have doubts whether
   a certain part of your code should be unit or e2e tested, if it makes sense to unit test it, always prefer that over
@@ -342,22 +341,22 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Unit tests are much faster than e2e tests
 
-#### Rule #3: Don't e2e test what has already been unit tested
+###### Rule-03: Don't e2e test what has already been unit tested
 
   If you already have unit tests for a particular behavior, there is no need to write more e2e tests for that exact same
   part of the code. It might be that the same behavior will be hit as part of the flow under test in one of your e2e
-  tests, but having 2 dedicated tests for the same piece of code is not necessary
+  tests, but having two dedicated tests for the same piece of code is not necessary
 
   **Why?**
   * Avoid duplicate tests
 
-#### Rule #4: Use one configuration file
+###### Rule-04: Use one configuration file
 
   Any protractor test suite starts out with a protractor.conf.js file, which basically is, as the name suggests,
   configuration code for Protractor written in javascript. Most of the times you will want to run your tests against
   multiple environments, not just a single one. In order to do that, it's a better practice to declare the different targets
   you want to test against via your task runner and keep the shared configuration in one Protractor config file,
-  rather than having a configuration file for each of your environments. Just because a file contains configuration,
+  rather than have a configuration file for each of your environments. Just because a file contains configuration,
   doesn't mean that it isn't code and shouldn't be treated as such.
 
   **Why?**
@@ -420,7 +419,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Project structure
 
-#### Rule #5: Group your e2e tests in a structure that makes sense to the structure of your project
+###### Rule-05: Group your e2e tests in a structure that makes sense to the structure of your project
 
   **Why?**
   * Finding your e2e related files should be intuitive and easy
@@ -485,7 +484,8 @@ but since that's all encapsulated in one place, the task is much more manageable
                contacts.spec.js
      ```
 
-     ##### Large scale Angular apps
+
+  ##### Large scale Angular apps
      ```
      /* avoid */
      |-- project-folder
@@ -555,12 +555,13 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Locator strategies
 
-#### Rule #6: Never use xpath
+###### Rule-06: Never use xpath
 
-  **Why**
-  * It's the slowest and most brittle locator strategy
+  **Why?**
+  * It's the slowest and most brittle locator strategy of all
   * Markup is very easily subject to change and therefore xpath locators require a lot of maintenance
   * xpath expressions are unreadable and very hard to debug
+
 
   ```javascript
     /* avoid */
@@ -571,9 +572,9 @@ but since that's all encapsulated in one place, the task is much more manageable
      ']'));
   ```
 
-#### Rule #7: Prefer Protractor locators when possible
+###### Rule-07: Prefer Protractor locators when possible
 
-  **Why**
+  **Why?**
   * They are very specific locators
   * Access elements easier
   * Expressions are less likely to change than markup
@@ -597,25 +598,26 @@ but since that's all encapsulated in one place, the task is much more manageable
       var nameElem = element(by.binding('color.name'));
     ```
 
-#### Rule #8: Prefer **by.id** and **by.css** when no Protractor locators are available
+###### Rule-08: Prefer **by.id** and **by.css** when no Protractor locators are available
 
   **Why?**
   * Both are very performant and readable locators
   * Access elements easier
 
-#### Rule #9: Avoid text locators for text that changes frequently
+###### Rule-09: Avoid text locators for text that changes frequently
 
   **Why?**
   * Text for buttons, links, and labels tends to change over time
   * Your tests should not break when you make minor text changes
 
+
 ### Page objects
 
-#### Rule #10: Use Page Objects to interact with page under test
+###### Rule-10: Use Page Objects to interact with page under test
 
   **Why?**
-  * Encapsulate information about the elements on the page under test
-  * They can be reused across multiple tests
+  * They encapsulate information about the elements on the page under test
+  * Can be reused across multiple tests
   * Decouple the test logic from implementation details
 
    ```javascript
@@ -668,7 +670,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       module.exports = QuestionPage;
    ```
 
-#### Rule #11: UpperCamelCase the names of your Page Objects
+###### Rule #11: UpperCamelCase the names of your Page Objects
 
   **Why?**
   * By definition, a Page Object is an object-oriented class and therefore all class naming conventions
@@ -688,7 +690,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       };
     ```
 
-#### Rule #12: Pick a descriptive file naming convention for your Page Object files
+###### Rule #12: Pick a descriptive file naming convention for your Page Object files
 
   I've seen both 'page' or 'pageObject' being used and as far as I am concerned, they are equally fine
 
@@ -734,12 +736,12 @@ but since that's all encapsulated in one place, the task is much more manageable
                  |-- archive.spec.js
    ```
 
-#### Rule #13: Declare one Page Object per file
+###### Rule #13: Declare one Page Object per file
 
   **Why?**
   * Keeps code clean and makes things easy to find
 
-#### Rule #14: Use a single module.exports at the end of the Page Object file
+###### Rule #14: Use a single module.exports at the end of the Page Object file
 
   **Why?**
   * One Page Object per file means there's only one class to export
@@ -769,7 +771,7 @@ but since that's all encapsulated in one place, the task is much more manageable
     ```
 
 
-#### Rule #15: Require and instantiate all the modules at the top
+###### Rule #15: Require and instantiate all the modules at the top
 
   **Why?**
   * The module dependencies should be clear and easy to find
@@ -791,7 +793,8 @@ but since that's all encapsulated in one place, the task is much more manageable
         // specs
       });
     ```
-####Rule #16: Declare all public elements in the constructor
+
+###### Rule #16: Declare all public elements in the constructor
 
   **Why?**
   * The consumer of the Page Object should have quick access to the available elements on a page
@@ -814,7 +817,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         };
     ```
 
-#### Rule #17: Declare functions for operations that require more that one step
+###### Rule #17: Declare functions for operations that require more that one step
 
   **Why?**
   * Most elements are exposed by the Page Object and can be used directly in the test
@@ -870,18 +873,18 @@ but since that's all encapsulated in one place, the task is much more manageable
         });
     ```
 
-#### Rule #18: Do not add any assertions in your Page Object definitions
+###### Rule #18: Do not add any assertions in your Page Object definitions
 
   Martin Fowler has a very good thought on this one:
 
-    > Page Objects are commonly used for testing, but should not make assertions themselves. Their responsibility is to
-    > provide access to the state of the underlying page. It's up to test clients to carry out the assertion logic.
+> Page Objects are commonly used for testing, but should not make assertions themselves. Their responsibility is to
+> provide access to the state of the underlying page. It's up to test clients to carry out the assertion logic.
 
   **Why?**
   * It is the responsibility of the test to do all the assertions
   * Reader of the test should be able to understand the behavior of the application by looking at the test only
 
-#### Rule #19: Add wrappers for directives, dialogs, and common elements
+###### Rule #19: Add wrappers for directives, dialogs, and common elements
 
   **Why?**
   * You can use them in multiple tests
@@ -907,18 +910,17 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Test suites
 
+//TODO
+
+## Helper classes
+
+// TODO
+
 ## Useful Links
-###### AngularJS
-  (1) [Angular App Structure](http://angularjs.blogspot.nl/2014/02/an-angularjs-style-guide-and-best.html)
-###### Unit Testing
-  (2) [Karma](http://karma-runner.github.io/)
-  (3) [Karma design docs](https://github.com/karma-runner/karma/blob/master/thesis.pdf)
-
-###### E2E Testing
-  (4) [Protractor](http://angular.github.io/protractor)
-  (5) [GTAC 2010: The Future of Front-End Testing](https://www.youtube.com/watch?v=oX-0Mt5zju0)
-
-###### Page Objects
-  (5) [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
-  (6) [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
-  (7) [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
+  Karma - http://karma-runner.github.io/
+  Karma design docs - https://github.com/karma-runner/karma/blob/master/thesis.pdf
+  [Protractor](http://angular.github.io/protractor)
+  [GTAC 2010: The Future of Front-End Testing](https://www.youtube.com/watch?v=oX-0Mt5zju0)
+  [Selenium](http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern)
+  [Google Selenium pages](https://code.google.com/p/selenium/wiki/PageObjects)
+  [Martin Fowler](http://martinfowler.com/bliki/PageObject.html)
