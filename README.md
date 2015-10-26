@@ -670,7 +670,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       module.exports = QuestionPage;
    ```
 
-###### [Rule #11: UpperCamelCase the names of your Page Objects]
+###### [Rule-11: UpperCamelCase the names of your Page Objects]
 
   **Why?**
   * By definition, a Page Object is an object-oriented class and therefore all class naming conventions
@@ -690,7 +690,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       };
     ```
 
-###### [Rule #12: Pick a descriptive file naming convention for your Page Object files]
+###### [Rule-12: Pick a descriptive file naming convention for your Page Object files]
 
   I've seen both 'page' or 'pageObject' being used and as far as I am concerned, they are equally fine
 
@@ -736,12 +736,12 @@ but since that's all encapsulated in one place, the task is much more manageable
                  |-- archive.spec.js
    ```
 
-###### [Rule #13: Declare one Page Object per file]
+###### [Rule-13: Declare one Page Object per file]
 
   **Why?**
   * Keeps code clean and makes things easy to find
 
-###### [Rule #14: Use a single module.exports at the end of the Page Object file]
+###### [Rule-14: Use a single module.exports at the end of the Page Object file]
 
   **Why?**
   * One Page Object per file means there's only one class to export
@@ -771,7 +771,7 @@ but since that's all encapsulated in one place, the task is much more manageable
     ```
 
 
-###### [Rule #15: Require and instantiate all the modules at the top]
+###### [Rule-15: Require and instantiate all the modules at the top]
 
   **Why?**
   * The module dependencies should be clear and easy to find
@@ -794,7 +794,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       });
     ```
 
-###### [Rule #16: Declare all public elements in the constructor]
+###### [Rule-16: Declare all public elements in the constructor]
 
   **Why?**
   * The consumer of the Page Object should have quick access to the available elements on a page
@@ -817,7 +817,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         };
     ```
 
-###### [Rule #17: Declare functions for operations that require more that one step]
+###### [Rule-17: Declare functions for operations that require more that one step]
 
   **Why?**
   * Most elements are exposed by the Page Object and can be used directly in the test
@@ -873,7 +873,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         });
     ```
 
-###### [Rule #18: Do not add any assertions in your Page Object definitions]
+###### [Rule-18: Do not add any assertions in your Page Object definitions]
 
   Martin Fowler has a very good thought on this one:
 
@@ -884,7 +884,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * It is the responsibility of the test to do all the assertions
   * Reader of the test should be able to understand the behavior of the application by looking at the test only
 
-###### [Rule #19: Add wrappers for directives, dialogs, and common elements]
+###### [Rule-19: Add wrappers for directives, dialogs, and common elements]
 
   **Why?**
   * You can use them in multiple tests
