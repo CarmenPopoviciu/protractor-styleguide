@@ -41,7 +41,7 @@ Last but not least, this project wouldn't mean anything without the support and 
 awesome! -`ღ´-
 
 
-## And one last thing....
+## And one last thing ...
 
 \#useYourSuperPowersToDoGood
 
@@ -58,7 +58,7 @@ awesome! -`ღ´-
   * [Generic rules](#generic-rules)
   * [Project structure](#project-structure)
   * [Locator strategies](#locator-strategies)
-  * [Page Objects](###page-objects)
+  * [Page Objects](##page-objects)
   * [Test suites](#test-suites)
 5. [Useful Links](#useful-links)
 
@@ -320,7 +320,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Generic rules
 
-###### Rule-01: Do not cheat on your tests
+###### [Rule-01: Do not cheat on your tests]
 
   If you're skipping tests or writing dummy ones just to pass that good old coverage check, you're on the road to perdition.
   I'm not necessarily advocating for 100% code coverage, though that would be nice, but at least make sure
@@ -362,6 +362,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Avoid code duplication
   * You can create spin-offs using a task runner
+
 
    ```javascript
      /* avoid */
