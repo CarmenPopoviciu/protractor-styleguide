@@ -332,7 +332,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * The 'I will test it manually later' thing doesn't work
   * The 'I wrote the code myself, I'm sure it works' thing doesn't work either
 
-###### Rule-02: Prefer unit over e2e tests when possible
+###### [Rule-02: Prefer unit over e2e tests when possible]
 
   Try to cover as much as possible of your logic with unit tests rather than with e2e tests. If you have doubts whether
   a certain part of your code should be unit or e2e tested, if it makes sense to unit test it, always prefer that over
@@ -341,7 +341,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Unit tests are much faster than e2e tests
 
-###### Rule-03: Don't e2e test what has already been unit tested
+###### [Rule-03: Don't e2e test what has already been unit tested]
 
   If you already have unit tests for a particular behavior, there is no need to write more e2e tests for that exact same
   part of the code. It might be that the same behavior will be hit as part of the flow under test in one of your e2e
@@ -350,7 +350,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Avoid duplicate tests
 
-###### Rule-04: Use one configuration file
+###### [Rule-04: Use one configuration file]
 
   Any protractor test suite starts out with a protractor.conf.js file, which basically is, as the name suggests,
   configuration code for Protractor written in javascript. Most of the times you will want to run your tests against
@@ -362,7 +362,6 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Avoid code duplication
   * You can create spin-offs using a task runner
-
 
    ```javascript
      /* avoid */
@@ -420,7 +419,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Project structure
 
-###### Rule-05: Group your e2e tests in a structure that makes sense to the structure of your project
+###### [Rule-05: Group your e2e tests in a structure that makes sense to the structure of your project]
 
   **Why?**
   * Finding your e2e related files should be intuitive and easy
@@ -556,7 +555,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Locator strategies
 
-###### Rule-06: Never use xpath
+###### [Rule-06: Never use xpath]
 
   **Why?**
   * It's the slowest and most brittle locator strategy of all
@@ -573,7 +572,7 @@ but since that's all encapsulated in one place, the task is much more manageable
      ']'));
   ```
 
-###### Rule-07: Prefer Protractor locators when possible
+###### [Rule-07: Prefer Protractor locators when possible]
 
   **Why?**
   * They are very specific locators
@@ -599,13 +598,13 @@ but since that's all encapsulated in one place, the task is much more manageable
       var nameElem = element(by.binding('color.name'));
     ```
 
-###### Rule-08: Prefer **by.id** and **by.css** when no Protractor locators are available
+###### [Rule-08: Prefer **by.id** and **by.css** when no Protractor locators are available]
 
   **Why?**
   * Both are very performant and readable locators
   * Access elements easier
 
-###### Rule-09: Avoid text locators for text that changes frequently
+###### [Rule-09: Avoid text locators for text that changes frequently]
 
   **Why?**
   * Text for buttons, links, and labels tends to change over time
@@ -614,7 +613,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Page objects
 
-###### Rule-10: Use Page Objects to interact with page under test
+###### [Rule-10: Use Page Objects to interact with page under test]
 
   **Why?**
   * They encapsulate information about the elements on the page under test
@@ -671,7 +670,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       module.exports = QuestionPage;
    ```
 
-###### Rule #11: UpperCamelCase the names of your Page Objects
+###### [Rule #11: UpperCamelCase the names of your Page Objects]
 
   **Why?**
   * By definition, a Page Object is an object-oriented class and therefore all class naming conventions
@@ -691,7 +690,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       };
     ```
 
-###### Rule #12: Pick a descriptive file naming convention for your Page Object files
+###### [Rule #12: Pick a descriptive file naming convention for your Page Object files]
 
   I've seen both 'page' or 'pageObject' being used and as far as I am concerned, they are equally fine
 
@@ -737,12 +736,12 @@ but since that's all encapsulated in one place, the task is much more manageable
                  |-- archive.spec.js
    ```
 
-###### Rule #13: Declare one Page Object per file
+###### [Rule #13: Declare one Page Object per file]
 
   **Why?**
   * Keeps code clean and makes things easy to find
 
-###### Rule #14: Use a single module.exports at the end of the Page Object file
+###### [Rule #14: Use a single module.exports at the end of the Page Object file]
 
   **Why?**
   * One Page Object per file means there's only one class to export
@@ -772,7 +771,7 @@ but since that's all encapsulated in one place, the task is much more manageable
     ```
 
 
-###### Rule #15: Require and instantiate all the modules at the top
+###### [Rule #15: Require and instantiate all the modules at the top]
 
   **Why?**
   * The module dependencies should be clear and easy to find
@@ -795,7 +794,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       });
     ```
 
-###### Rule #16: Declare all public elements in the constructor
+###### [Rule #16: Declare all public elements in the constructor]
 
   **Why?**
   * The consumer of the Page Object should have quick access to the available elements on a page
@@ -818,7 +817,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         };
     ```
 
-###### Rule #17: Declare functions for operations that require more that one step
+###### [Rule #17: Declare functions for operations that require more that one step]
 
   **Why?**
   * Most elements are exposed by the Page Object and can be used directly in the test
@@ -874,7 +873,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         });
     ```
 
-###### Rule #18: Do not add any assertions in your Page Object definitions
+###### [Rule #18: Do not add any assertions in your Page Object definitions]
 
   Martin Fowler has a very good thought on this one:
 
@@ -885,7 +884,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * It is the responsibility of the test to do all the assertions
   * Reader of the test should be able to understand the behavior of the application by looking at the test only
 
-###### Rule #19: Add wrappers for directives, dialogs, and common elements
+###### [Rule #19: Add wrappers for directives, dialogs, and common elements]
 
   **Why?**
   * You can use them in multiple tests
