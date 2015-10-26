@@ -33,7 +33,7 @@ get some extra ♥ for your help.
 
 ## Video
 
-[Andres Dominguez]((https://twitter.com/andresdom)) and I gave a talk about this styleguide at
+[Andres Dominguez](https://twitter.com/andresdom) and I gave a talk about this styleguide at
 [AngularConnect](http://angularconnect.com/) in London. Here's the video in case you want to watch it.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-lTGnYwnEuM
