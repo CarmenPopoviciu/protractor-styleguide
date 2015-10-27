@@ -986,10 +986,9 @@ but since that's all encapsulated in one place, the task is much more manageable
     });
   ```
 
-
   **Why?**
-    * You can run tests in isolation
-    * You can debug your tests (ddescribe/fdescribe/xdescribe/iit/fit/xit)
+  * You can run tests in isolation
+  * You can debug your tests (ddescribe/fdescribe/xdescribe/iit/fit/xit)
 
 ###### [Rule-24: Navigate to the page under test before each test]
 
@@ -1006,7 +1005,6 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ## Helper classes
 
-// TODO
 
 ## Useful Links
   Karma - http://karma-runner.github.io/
