@@ -919,7 +919,89 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 ### Test suites
 
-//TODO
+###### [Rule-20: Don't mock unless you need to]
+
+  This rule is a bit controversial, in the sense that opinions are very divided when it comes to what the best practice
+  is. Some developers argue that e2e tests should use mocks for everything in order to avoid external network calls and
+  have a second set of integration tests to test the APIs and database. Other developers argue that e2e tests should
+  operate on the entire system and be as close to the 'real deal' as possible.
+
+  I tend to agree with Julie Ralph on this one, when she says that
+
+> which option is better depends on how many backends you have, how expensive they are to start up, and the needs of
+> your project.
+
+  If you can test everything together, then my advice is to do that, because that's the closest to the real app context
+  you can get. This will also give you much more confidence in your tests and that your app is production ready. If that's
+  not possible Protractor has some mocking strategies that you can use.
+
+  **Why?**
+  * Using the real application with all the dependencies gives you high confidence
+  * Helps you spot some corner cases you might have overlooked
+
+###### [Rule-21: Use Jasmine2]
+
+  **Why?**
+  * Well [documented](http://jasmine.github.io/2.0/introduction.html)
+  * Supported by Protractor out of the box
+  * You can use **beforeAll** and **afterAll**
+
+###### [Rule-22: Make your tests independent at file level]
+
+  **Why?**
+  * You can run tests in parallel with sharding
+  * The execution order is not guaranteed
+  * You can run suites in isolation
+
+###### [Rule-23: Make your tests independent from each other]
+
+  This rule holds true unless the operations performed to initialize the state of the tests are too expensive. For example,
+  if your e2e tests would require that you create a new user before each spec is executed, you might end up with too high
+  test run times. To avoid that, you could create the user in one of your tests and expect that record to be there for all
+  other subsequent tests.
+
+  ```javascript
+    it('should create user', function() {
+       browser.get('#/user-list');
+       userList.newButton.click();
+
+       userProperties.name.sendKeys('Teddy B');
+       userProperties.saveButton.click();
+
+       browser.get('#/user-list');
+       userList.search('Teddy B');
+       expect(userList.getNames()).toEqual(['Teddy B']);
+    });
+
+    it('should update user', function() {
+       browser.get('#/user-list');
+       userList.clickOn('Teddy B');
+
+       userProperties.name.clear().sendKeys('Teddy C');
+       userProperties.saveButton.click();
+
+       browser.get('#/user-list');
+       userList.search('Teddy C');
+       expect(userList.getNames()).toEqual(['Teddy C']);
+    });
+  ```
+
+  **Why?**
+    * You can run tests in isolation
+    * You can debug your tests (ddescribe/fdescribe/xdescribe/iit/fit/xit)
+
+###### [Rule-24: Navigate to the page under test before each test]
+
+  **Why?**
+  * Assures you that the page under test is in a clean state
+
+###### [Rule-25: Have a suite that navigates through the major routes of the app]
+
+  **Why?**
+  * Makes sure the major parts of the application are correctly connected
+  * Users usually don’t navigate by manually entering urls
+  * Gives confidence about permissions
+
 
 ## Helper classes
 
