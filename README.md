@@ -957,10 +957,13 @@ but since that's all encapsulated in one place, the task is much more manageable
 
   This rule holds true unless the operations performed to initialize the state of the tests are too expensive. For example,
   if your e2e tests would require that you create a new user before each spec is executed, you might end up with too high
-  test run times. To avoid that, you could create the user in one of your tests and expect that record to be there for all
-  other subsequent tests.
+  test run times. However, this does not mean you should make tests directly depend on one another.
+  So, instead of creating a user in one of your tests and expect that record to be there for all
+  other subsequent tests, you could harvest the power of jasmine's [beforeAll](http://jasmine.github.io/edge/introduction.html#section-Setup_and_Teardown) (since Jasmine 2.1)
+  to create the user.
 
   ```javascript
+    /* avoid */
     it('should create user', function() {
        browser.get('#/user-list');
        userList.newButton.click();
@@ -985,9 +988,48 @@ but since that's all encapsulated in one place, the task is much more manageable
        expect(userList.getNames()).toEqual(['Teddy C']);
     });
   ```
+    
+  ```javascript
+    /* recommended */
+   describe('when the user Teddy B is created', function(){
+   
+       beforeAll(function(){
+          browser.get('#/user-list');
+          userList.newButton.click();
+   
+          userProperties.name.sendKeys('Teddy B');
+          userProperties.saveButton.click();
+          browser.get('#/user-list');
+       });
+   
+       it('should exist', function(){
+          userList.search('Teddy B');
+          expect(userList.getNames()).toEqual(['Teddy B']);    
+          userList.clear();
+       });
+   
+       describe('and gets updated to Teddy C', function(){
+   
+           beforeAll(function(){
+               userList.clickOn('Teddy B');
+   
+               userProperties.name.clear().sendKeys('Teddy C');
+               userProperties.saveButton.click();
+   
+               browser.get('#/user-list');
+           });
+   
+           it('should be Teddy C', function(){
+               userList.search('Teddy C');
+               expect(userList.getNames()).toEqual(['Teddy C']);
+               userList.clear();
+           });
+       });
+    });
+  ```
 
   **Why?**
-  * You can run tests in isolation
+  * You can run each single test in isolation
   * You can debug your tests (ddescribe/fdescribe/xdescribe/iit/fit/xit)
 
 ###### [Rule-24: Navigate to the page under test before each test]
