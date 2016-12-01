@@ -1,0 +1,22 @@
+.question__field {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+.question__button {
+    width: 2em;
+    height: 2em;
+    font: bold 1.7em serif;
+    background-color: #86bb60;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.answer {
+    font: italic 1.2em serif;
+    margin-top: 15px;
+    padding: 10px;
+}

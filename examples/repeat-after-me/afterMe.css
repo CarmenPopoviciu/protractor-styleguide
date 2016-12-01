@@ -1,0 +1,20 @@
+button {
+    height: 30px;
+    width: 30px;
+}
+
+.key-group {
+    padding: 5px 10px 0px 10px;
+}
+
+.reset {
+    width: auto;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: #008000;
+}
