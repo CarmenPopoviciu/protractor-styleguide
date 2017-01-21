@@ -750,20 +750,14 @@ but since that's all encapsulated in one place, the task is much more manageable
   **Why?**
   * Keeps code clean and makes things easy to find
 
-###### [Rule-14: Use a single module.exports at the end of the Page Object file]
-
-  **Why?**
-  * One Page Object per file means there's only one class to export
-
-
-    ```javascript
+      ```javascript
       /* avoid */
 
       /* user-profile.page.js */
       var UserProfilePage = function() {};
       var UserSettingsPage = function() {};
 
-      module.exports = UserPropertiesPage;
+      module.exports = UserProfilePage;
       module.exports = UserSettingsPage;
       ```
 
@@ -772,13 +766,39 @@ but since that's all encapsulated in one place, the task is much more manageable
 
       /* user-profile.pageObject.js */
       var UserProfilePage = function() {};
-      module.exports = UserPropertiesPage;
+      module.exports = UserProfilePage;
 
       /* user-settings.pageObject.js */
       var UserSettingsPage = function() {};
       module.exports = UserSettingsPage;
     ```
 
+###### [Rule-14: Use a single module.exports at the end of the Page Object file]
+
+  **Why?**
+  * One Page Object per file means there's only one class to export
+
+      ```javascript
+      /* avoid */
+
+      /* user-profile.pageObject.js */
+      module.exports.logInUser = function() {};
+      module.exports.logOutUser = function() {};
+      ```
+
+      ```javascript
+      /* recommended */
+
+      /* user-profile.pageObject.js */
+      var UserProfilePage = function() {
+        return {
+          logInUser: function() {},
+          logOutUser: function() {}
+        }
+      };
+
+      module.exports = UserProfilePage;
+    ```
 
 ###### [Rule-15: Require and instantiate all the modules at the top]
 
