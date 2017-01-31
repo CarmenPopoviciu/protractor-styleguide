@@ -1,12 +1,12 @@
-Protractor Styleguide
+Protractor style guide
 ============================
 
 *Some opinionated guidelines for those out there looking for testing best practices with protractor*
 
-This styleguide is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
+This style guide is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
 learnings that my team and I came across while working with many other teams, on improving their testing related codebase
 and achieving some sort of code uniformity across teams. If you are familiar with [John Papa's](https://twitter.com/John_Papa)
-angular [styleguide](https://github.com/johnpapa/angular-styleguide), which I highly recommend, think of this project as
+angular [style guide](https://github.com/johnpapa/angular-styleguide), which I highly recommend, think of this project as
 something similar, but then for Protractor.
 
 The examples and use cases mentioned in this guide are all related to AngularJS applications, but most things are equally
@@ -33,12 +33,12 @@ get some extra ♥ for your help.
 
 ## Video
 
-[Andres Dominguez](https://twitter.com/andresdom) and I gave a talk about this styleguide at
+[Andres Dominguez](https://twitter.com/andresdom) and I gave a talk about this style guide at
 [AngularConnect](http://angularconnect.com/) in London. Here's the video in case you want to watch it.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-lTGnYwnEuM
 " target="_blank"><img src="http://img.youtube.com/vi/-lTGnYwnEuM/0.jpg"
-alt="Protractor styleguide @AngularConnect" width="240" height="180" border="10" /></a>
+alt="Protractor style guide @AngularConnect" width="240" height="180" border="10" /></a>
 
 ## Credit
 
@@ -63,7 +63,7 @@ awesome! -`ღ´-
 2. [Protractor](#protractor)
 3. [Page Objects](#page-objects)
 4. [Helper Classes](#helper-classes)
-5. [Styleguide rules](#styleguide-rules)
+5. [style guide rules](#style-guide-rules)
   * [Generic rules](#generic-rules)
   * [Project structure](#project-structure)
   * [Locator strategies](#locator-strategies)
@@ -122,7 +122,7 @@ yourself drifting that path, just remember that cheating on your tests is, at th
 Tests are there for a reason!
 
 If you venture out into the testing literature, you might be overwhelmed by the many different types of tests authors
-refer to. This styleguide is all about e2e tests (with Protractor), but because I think it is important to make the
+refer to. This style guide is all about e2e tests (with Protractor), but because I think it is important to make the
 distinction, I want to say a few words about unit testing as well.
 
 #### Unit Testing
@@ -325,7 +325,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 
 
-## Styleguide rules
+## style guide rules
 
 ### Generic rules
 
