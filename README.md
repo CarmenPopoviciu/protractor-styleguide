@@ -1059,6 +1059,6 @@ but since that's all encapsulated in one place, the task is much more manageable
 
   Selenium - http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern
 
-  Google Selenium pages - https://code.google.com/p/selenium/wiki/PageObjects
+  Google Selenium pages - https://github.com/SeleniumHQ/selenium/wiki/PageObjects
 
   Martin Fowler article on Page Objects - http://martinfowler.com/bliki/PageObject.html
