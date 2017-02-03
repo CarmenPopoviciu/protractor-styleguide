@@ -748,7 +748,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 ###### [Rule-13: Declare one Page Object per file]
 
   **Why?**
-  * Keeps code clean and makes things easy to find
+  * One Page Object per file means there's only one class to export
 
       ```javascript
       /* avoid */
@@ -757,8 +757,8 @@ but since that's all encapsulated in one place, the task is much more manageable
       var UserProfilePage = function() {};
       var UserSettingsPage = function() {};
 
-      module.exports = UserProfilePage;
-      module.exports = UserSettingsPage;
+      module.exports.userProfilePage = UserProfilePage;
+      module.exports.userSettingsPage = UserSettingsPage;
       ```
 
       ```javascript
@@ -776,7 +776,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 ###### [Rule-14: Use a single module.exports at the end of the Page Object file]
 
   **Why?**
-  * One Page Object per file means there's only one class to export
+  * Keeps code clean
 
       ```javascript
       /* avoid */
