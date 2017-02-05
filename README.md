@@ -834,6 +834,29 @@ but since that's all encapsulated in one place, the task is much more manageable
 
   ```javascript
         /* avoid */
+        /* user-properties.page.js */
+        var UserPropertiesPage = function() {
+          this.name = element(by.model('ctrl.user.name'));
+          this.saveButton = element(by.id('save-button'));
+        };
+
+
+        /* user-properties.spec.js */
+        var UserPage = require('./user-properties.page');
+
+        describe('User properties page', function() {
+          var user = new UserPage();
+
+          it('should enable save button when a username is entered', function() {
+             user.name.sendKeys('TeddyB');
+             expect(user.saveButton.isEnabled()).toBe(true);
+           });
+        });
+        
+    ```
+
+    ```javascript
+        /* recommended */
 
         /* user-properties.page.js */
         var UserPropertiesPage = function() {
@@ -854,29 +877,6 @@ but since that's all encapsulated in one place, the task is much more manageable
 
           it('should enable save button when a username is entered', function() {
              user.enterName('TeddyB');
-             expect(user.saveButton.isEnabled()).toBe(true);
-           });
-        });
-    ```
-
-    ```javascript
-        /* recommended */
-
-        /* user-properties.page.js */
-        var UserPropertiesPage = function() {
-          this.name = element(by.model('ctrl.user.name'));
-          this.saveButton = element(by.id('save-button'));
-        };
-
-
-        /* user-properties.spec.js */
-        var UserPage = require('./user-properties.page');
-
-        describe('User properties page', function() {
-          var user = new UserPage();
-
-          it('should enable save button when a username is entered', function() {
-             user.name.sendKeys('TeddyB');
              expect(user.saveButton.isEnabled()).toBe(true);
            });
         });
