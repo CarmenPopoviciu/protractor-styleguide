@@ -67,7 +67,7 @@ awesome! -`ღ´-
   * [Generic Rules](#generic-rules)
   * [Project Structure](#project-structure)
   * [Locator Strategies](#locator-strategies)
-  * [Page Objects](##page-objects)
+  * [Page Objects](#page-objects-1)
   * [Test suites](#test-suites)
 5. [Useful Links](#useful-links)
 
