@@ -3,8 +3,7 @@ Protractor Style Guide
 
 *Some opinionated guidelines for those out there looking for testing best practices with protractor*
 
-This 
-is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
+This style guide is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
 learnings that my team and I came across while working with many other teams, on improving their testing related codebase
 and achieving some sort of code uniformity across teams. If you are familiar with [John Papa's](https://twitter.com/John_Papa)
 [Angular Style Guide](https://github.com/johnpapa/angular-styleguide), which I highly recommend, think of this project as
