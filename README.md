@@ -1,12 +1,13 @@
-Protractor style guide
+Protractor Style Guide
 ============================
 
 *Some opinionated guidelines for those out there looking for testing best practices with protractor*
 
-This style guide is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
+This 
+is a set of opinionated rules and best practices about writing e2e tests with Protractor. These are all
 learnings that my team and I came across while working with many other teams, on improving their testing related codebase
 and achieving some sort of code uniformity across teams. If you are familiar with [John Papa's](https://twitter.com/John_Papa)
-angular [style guide](https://github.com/johnpapa/angular-styleguide), which I highly recommend, think of this project as
+[Angular Style Guide](https://github.com/johnpapa/angular-styleguide), which I highly recommend, think of this project as
 something similar, but then for Protractor.
 
 The examples and use cases mentioned in this guide are all related to AngularJS applications, but most things are equally
@@ -63,10 +64,10 @@ awesome! -`ღ´-
 2. [Protractor](#protractor)
 3. [Page Objects](#page-objects)
 4. [Helper Classes](#helper-classes)
-5. [style guide rules](#style-guide-rules)
-  * [Generic rules](#generic-rules)
-  * [Project structure](#project-structure)
-  * [Locator strategies](#locator-strategies)
+5. [Style Guide Rules](#style-guide-rules)
+  * [Generic Rules](#generic-rules)
+  * [Project Structure](#project-structure)
+  * [Locator Strategies](#locator-strategies)
   * [Page Objects](##page-objects)
   * [Test suites](#test-suites)
 5. [Useful Links](#useful-links)
@@ -325,9 +326,9 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 
 
-## style guide rules
+## Style Guide Rules
 
-### Generic rules
+### Generic Rules
 
 ###### [Rule-01: Do not cheat on your tests]
 
@@ -426,7 +427,7 @@ but since that's all encapsulated in one place, the task is much more manageable
        }
       ```
 
-### Project structure
+### Project Structure
 
 ###### [Rule-05: Group your e2e tests in a structure that makes sense to the structure of your project]
 
@@ -562,7 +563,7 @@ but since that's all encapsulated in one place, the task is much more manageable
      ```
 
 
-### Locator strategies
+### Locator Strategies
 
 ###### [Rule-06: Never use xpath]
 
@@ -620,7 +621,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Your tests should not break when you make minor text changes
 
 
-### Page objects
+### Page Objects
 
 ###### [Rule-10: Use Page Objects to interact with page under test]
 
@@ -917,7 +918,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         });
     ```
 
-### Test suites
+### Test Suites
 
 ###### [Rule-20: Don't mock unless you need to]
 
@@ -1045,7 +1046,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Gives confidence about permissions
 
 
-## Helper classes
+## Helper Classes
 
 
 ## Useful Links
