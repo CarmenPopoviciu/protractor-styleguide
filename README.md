@@ -292,6 +292,7 @@ Coming back to our Grandfather of all Knowledge application, let's see how a Pag
           this.button.click();
       };
   };
+  module.exports = GrandfatherOfAllKnowledge;
 ```
 
 ```javascript
