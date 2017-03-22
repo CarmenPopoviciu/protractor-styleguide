@@ -183,79 +183,79 @@ presses a button and gets the answer to the question. Easy! ... and clever if yo
 The HTML markup for the application is as follows:
 
 ```html
-  <!-- grandfather.html -->
+<!-- grandfather.html -->
 
-  <body ng-app="GrandfatherOfAllKnowledgeApp">
-    <div class="question">
-      <input class="question__field" ng-model="question.text"
-             placeholder="What would you like to ask Grandfather of all knowledge?">
-      <button class="question__button" ng-click="answerQuestion()"
-              ng-disabled="!question.text">?</button>
-    </div>
-    <div class="answer">{{answer}}</div>
-  </body>
+<body ng-app="GrandfatherOfAllKnowledgeApp">
+  <div class="question">
+    <input class="question__field" ng-model="question.text"
+           placeholder="What would you like to ask Grandfather of all knowledge?">
+    <button class="question__button" ng-click="answerQuestion()"
+            ng-disabled="!question.text">?</button>
+  </div>
+  <div class="answer">{{answer}}</div>
+</body>
   ```
 
 The e2e tests in this case should cover exactly the interaction we described earlier: user enters question, presses
 button and gets an answer. They look something like this:
 
 ```javascript
-  /* grandfather.spec.js */
+/* grandfather.spec.js */
 
-  describe("The grandfather of all knowledge", function() {
+describe("The grandfather of all knowledge", function() {
 
-      beforeEach(function() {
-          browser.get('/#/grandfather-of-all-knowledge');
-      });
-
-      it('should answer any question', function() {
-          var question = element(by.model('question.text'));
-          var answer = element(by.binding('answer'));
-          var button = element(by.className('question__button'));
-
-          question.sendKeys("What is the purpose of meaning?");
-          button.click();
-          expect(answer.getText()).toEqual("Chocolate!");
-      });
-
-      it('should not allow empty questions', function() {
-          var question = element(by.model('question.text'));
-          var answer = element(by.binding('answer'));
-          var button = element(by.className('question__button'));
-
-          question.sendKeys("    ");
-          expect(button.isEnabled()).toBeFalsy();
-      });
+  beforeEach(function() {
+    browser.get('/#/grandfather-of-all-knowledge');
   });
+
+  it('should answer any question', function() {
+    var question = element(by.model('question.text'));
+    var answer = element(by.binding('answer'));
+    var button = element(by.className('question__button'));
+
+    question.sendKeys("What is the purpose of meaning?");
+    button.click();
+    expect(answer.getText()).toEqual("Chocolate!");
+  });
+
+  it('should not allow empty questions', function() {
+    var question = element(by.model('question.text'));
+    var answer = element(by.binding('answer'));
+    var button = element(by.className('question__button'));
+
+    question.sendKeys("    ");
+    expect(button.isEnabled()).toBeFalsy();
+  });
+});
 ```
 
 Now, the fact that we are declaring the question/answer/button elements in each spec, adds a lot of duplicate code to our
 tests, and as we all know, duplicate code is generally not a good practice. Let's fix that!
 
 ```javascript
-  /* grandfather.spec.js */
+/* grandfather.spec.js */
 
-  describe("The grandfather of all knowledge", function() {
+describe("The grandfather of all knowledge", function() {
 
-      var question = element(by.model('question.text'));
-      var answer = element(by.binding('answer'));
-      var button = element(by.className('question__button'));
+  var question = element(by.model('question.text'));
+  var answer = element(by.binding('answer'));
+  var button = element(by.className('question__button'));
 
-      beforeEach(function() {
-          browser.get('/#/grandfather-of-all-knowledge');
-      });
-
-      it('should answer any question', function() {
-          question.sendKeys("What is the purpose of meaning?");
-          button.click();
-          expect(answer.getText()).toEqual("Chocolate!");
-      });
-
-      it('should not allow empty questions', function() {
-          question.sendKeys("    ");
-          expect(button.isEnabled()).toBeFalsy();
-      });
+  beforeEach(function() {
+    browser.get('/#/grandfather-of-all-knowledge');
   });
+
+  it('should answer any question', function() {
+    question.sendKeys("What is the purpose of meaning?");
+    button.click();
+    expect(answer.getText()).toEqual("Chocolate!");
+  });
+
+  it('should not allow empty questions', function() {
+    question.sendKeys("    ");
+    expect(button.isEnabled()).toBeFalsy();
+  });
+});
 ```
 
 This is already better, but we can do even better than that. If you look at the tests we wrote, notice that they are
@@ -280,44 +280,44 @@ this:
 Coming back to our Grandfather of all Knowledge application, let's see how a Page Object would look like:
 
 ```javascript
-  /* grandfather.pageObject.js */
+/* grandfather.pageObject.js */
 
-  var GrandfatherOfAllKnowledge = function() {
-      this.question = element(by.model('question.text'));
-      this.answer = element(by.binding('answer'));
-      this.button = element(by.className('question__button'));
+var GrandfatherOfAllKnowledge = function() {
+  this.question = element(by.model('question.text'));
+  this.answer = element(by.binding('answer'));
+  this.button = element(by.className('question__button'));
 
-      this.askQuestion = function(question) {
-          this.question.sendKeys(question);
-          this.button.click();
-      };
+  this.askQuestion = function(question) {
+    this.question.sendKeys(question);
+    this.button.click();
   };
-  module.exports = GrandfatherOfAllKnowledge;
+};
+module.exports = GrandfatherOfAllKnowledge;
 ```
 
 ```javascript
-  /* grandfather.spec.js */
+/* grandfather.spec.js */
 
-  var GrandfatherOfAllKnowledge = require('./grandfatherPageObject');
+var GrandfatherOfAllKnowledge = require('./grandfatherPageObject');
 
-  describe("The grandfather of all knowledge", function() {
+describe("The grandfather of all knowledge", function() {
 
-      var grandfatherOfAllKnowledge = new GrandfatherOfAllKnowledge();
+  var grandfatherOfAllKnowledge = new GrandfatherOfAllKnowledge();
 
-      beforeEach(function() {
-          browser.get('/#/grandfather-of-all-knowledge');
-      });
-
-      it('should answer any question', function() {
-          grandfatherOfAllKnowledge.askQuestion("What is the purpose of meaning?");
-          expect(grandfatherOfAllKnowledge.answer.getText()).toEqual("Chocolate!");
-      });
-
-      it('should not allow empty questions', function() {
-          grandfatherOfAllKnowledge.askQuestion("    ");
-          expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
-      });
+  beforeEach(function() {
+    browser.get('/#/grandfather-of-all-knowledge');
   });
+
+  it('should answer any question', function() {
+    grandfatherOfAllKnowledge.askQuestion("What is the purpose of meaning?");
+    expect(grandfatherOfAllKnowledge.answer.getText()).toEqual("Chocolate!");
+  });
+
+  it('should not allow empty questions', function() {
+    grandfatherOfAllKnowledge.askQuestion("    ");
+    expect(grandfatherOfAllKnowledge.button.isEnabled()).toBeFalsy();
+  });
+});
 ```
 
 Much cleaner right? Notice how nicely our concerns are separated now and how much more readable the tests have become.
@@ -374,58 +374,58 @@ but since that's all encapsulated in one place, the task is much more manageable
   * You can create spin-offs using a task runner
 
    ```javascript
-     /* avoid */
-     protractor.conf.local.js
-     protractor.conf.dev.js
-     protractor.conf.test.js
+   /* avoid */
+   protractor.conf.local.js
+   protractor.conf.dev.js
+   protractor.conf.test.js
    ```
 
    ```javascript
-     /* recommended */
+   /* recommended */
 
-     /* protractor.conf.js */
-     exclude: [],
-     multiCapabilities: [{
-       browserName: 'chrome',
-       shardTestFiles: true,
-       maxInstances: 3
-     }],
-     allScriptsTimeout: 11000,
-     getPageTimeout: 10000,
-     framework: 'jasmine',
-     jasmineNodeOpts: {
-       isVerbose: false,
-       showColors: true,
-       includeStackTrace: false,
-       defaultTimeoutInterval: 40000
-     }
+   /* protractor.conf.js */
+   exclude: [],
+   multiCapabilities: [{
+     browserName: 'chrome',
+     shardTestFiles: true,
+     maxInstances: 3
+   }],
+   allScriptsTimeout: 11000,
+   getPageTimeout: 10000,
+   framework: 'jasmine',
+   jasmineNodeOpts: {
+     isVerbose: false,
+     showColors: true,
+     includeStackTrace: false,
+     defaultTimeoutInterval: 40000
+   }
    ```
 
    ```javascript
-     /* recommended */
+   /* recommended */
 
-     /* Gruntfile.js */
-     // grunt-protractor-coverage config
+   /* Gruntfile.js */
+   // grunt-protractor-coverage config
 
-     e2e.local: {
-       options: {
-         args: {
-           baseUrl: local_base_url,
-           seleniumAddress: local_Se,
-           specs: ['..../**/*.spec.js']
-           }
-         }
-       },
-       e2e.dev: {
-         options: {
-           args: {
-             baseUrl: dev_base_url,
-             seleniumAddress: dev_Se,
-             specs: ['..../**/*.spec.js']
-           }
+   e2e.local: {
+     options: {
+       args: {
+         baseUrl: local_base_url,
+         seleniumAddress: local_Se,
+         specs: ['..../**/*.spec.js']
          }
        }
-      ```
+     },
+     e2e.dev: {
+       options: {
+         args: {
+           baseUrl: dev_base_url,
+           seleniumAddress: dev_Se,
+           specs: ['..../**/*.spec.js']
+         }
+       }
+     }
+   ```
 
 ### Project Structure
 
@@ -437,130 +437,130 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Clearly separates e2e tests from unit tests
 
   ##### Small scale Angular apps
-     ```
-     /* avoid */
-     |-- project-folder
-       |-- app
-           |-- css
-           |-- img
-           |-- partials
+   ```
+   /* avoid */
+   |-- project-folder
+     |-- app
+         |-- css
+         |-- img
+         |-- partials
+             home.html
+             profile.html
+             contacts.html
+         |-- js
+             |-- controllers
+             |-- directives
+             |-- services
+             app.js
+             ...
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             home.pageObject.js
+             home.spec.js
+             profile.pageObject.js
+             profile.spec.js
+             contacts.pageObject.js
+             contacts.spec.js
+   ```
+
+   ```
+   /* recommended */
+   |-- project-folder
+     |-- app
+         |-- css
+         |-- img
+         |-- partials
                home.html
                profile.html
                contacts.html
-           |-- js
-               |-- controllers
-               |-- directives
-               |-- services
-               app.js
-               ...
-           index.html
-       |-- test
-           |-- unit
-           |-- e2e
-               home.pageObject.js
-               home.spec.js
-               profile.pageObject.js
-               profile.spec.js
-               contacts.pageObject.js
-               contacts.spec.js
-     ```
-
-     ```
-     /* recommended */
-     |-- project-folder
-       |-- app
-           |-- css
-           |-- img
-           |-- partials
-                 home.html
-                 profile.html
-                 contacts.html
-           |-- js
-               |-- controllers
-               |-- directives
-               |-- services
-               app.js
-               ...
-           index.html
-       |-- test
-           |-- unit
-           |-- e2e
-               |-- page-objects
-                     home.pageObject.js
-                     profile.pageObject.js
-                     contacts.pageObject.js
-               home.spec.js
-               profile.spec.js
-               contacts.spec.js
-     ```
+         |-- js
+             |-- controllers
+             |-- directives
+             |-- services
+             app.js
+             ...
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- page-objects
+                   home.pageObject.js
+                   profile.pageObject.js
+                   contacts.pageObject.js
+             home.spec.js
+             profile.spec.js
+             contacts.spec.js
+   ```
 
 
   ##### Large scale Angular apps
-     ```
-     /* avoid */
-     |-- project-folder
-       |-- app
-           |-- home
-                 home.html
-                 home.module.js
-                 home.controller.js
-           |-- profile
-                 profile.html
-                 profile.module.js
-                 profile.controller.js
-           |-- contacts
-                 contacts.html
-                 contacts.module.js
-                 contacts.controller.js
-           app.module.js
-           app.controller.js
-           app.css
-           index.html
-       |-- test
-           |-- unit
-           |-- e2e
-               home.pageObject.js
-               home.spec.js
-               profile.pageObject.js
-               profile.spec.js
-               contacts.pageObject.js
-               contacts.spec.js
-     ```
+   ```
+   /* avoid */
+   |-- project-folder
+     |-- app
+         |-- home
+               home.html
+               home.module.js
+               home.controller.js
+         |-- profile
+               profile.html
+               profile.module.js
+               profile.controller.js
+         |-- contacts
+               contacts.html
+               contacts.module.js
+               contacts.controller.js
+         app.module.js
+         app.controller.js
+         app.css
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             home.pageObject.js
+             home.spec.js
+             profile.pageObject.js
+             profile.spec.js
+             contacts.pageObject.js
+             contacts.spec.js
+   ```
 
-     ```
-     /* recommended */
-     |-- project-folder
-       |-- app
-           |-- home
-                 home.html
-                 home.module.js
-                 home.controller.js
-           |-- profile
-                 profile.html
-                 profile.module.js
-                 profile.controller.js
-           |-- contacts
-                 contacts.html
-                 contacts.module.js
-                 contacts.controller.js
-           app.js
-           app.module.js
-           app.controller.js
-           app.css
-           index.html
-       |-- test
-           |-- unit
-           |-- e2e
-               |-- home
-                     home.pageObject.js
-                     home.spec.js
-               |-- profile
-                     profile.pageObject.js
-                     profile.spec.js
-               |-- contacts
-                     contacts.pageObject.js
-                     contacts.spec.js
-     ```
+   ```
+   /* recommended */
+   |-- project-folder
+     |-- app
+         |-- home
+               home.html
+               home.module.js
+               home.controller.js
+         |-- profile
+               profile.html
+               profile.module.js
+               profile.controller.js
+         |-- contacts
+               contacts.html
+               contacts.module.js
+               contacts.controller.js
+         app.js
+         app.module.js
+         app.controller.js
+         app.css
+         index.html
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- home
+                   home.pageObject.js
+                   home.spec.js
+             |-- profile
+                   profile.pageObject.js
+                   profile.spec.js
+             |-- contacts
+                   contacts.pageObject.js
+                   contacts.spec.js
+   ```
 
 
 ### Locator Strategies
@@ -574,12 +574,12 @@ but since that's all encapsulated in one place, the task is much more manageable
 
 
   ```javascript
-    /* avoid */
-    var elem = element(by.xpath('/*/p[2]/b[2]/following-sibling::node()' +
-     '[count(.|/*/p[2]/b[2]/following-sibling::br[1]/preceding-sibling::node())' +
-     '=' +
-     ' count((/*/p[2]/b[2]/following-sibling::br[1]/preceding-sibling::node()))' +
-     ']'));
+  /* avoid */
+  var elem = element(by.xpath('/*/p[2]/b[2]/following-sibling::node()' +
+   '[count(.|/*/p[2]/b[2]/following-sibling::br[1]/preceding-sibling::node())' +
+   '=' +
+   ' count((/*/p[2]/b[2]/following-sibling::br[1]/preceding-sibling::node()))' +
+   ']'));
   ```
 
 ###### [Rule-07: Prefer Protractor locators when possible]
@@ -591,21 +591,21 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Simple and readable locators
 
     ```html
-      <ul class="red">
-        <li>{{color.name}}</li>
-        <li>{{color.shade}}</li>
-        <li>{{color.code}}</li>
-      </ul>
+    <ul class="red">
+      <li>{{color.name}}</li>
+      <li>{{color.shade}}</li>
+      <li>{{color.code}}</li>
+    </ul>
     ```
 
     ```javascript
-      /* avoid */
-      var nameElem = element.all(by.css('.red li')).get(0);
+    /* avoid */
+    var nameElem = element.all(by.css('.red li')).get(0);
     ```
 
     ```javascript
-      /* recommended */
-      var nameElem = element(by.binding('color.name'));
+    /* recommended */
+    var nameElem = element(by.binding('color.name'));
     ```
 
 ###### [Rule-08: Prefer **by.id** and **by.css** when no Protractor locators are available]
@@ -631,53 +631,53 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Decouple the test logic from implementation details
 
    ```javascript
-      /* avoid */
+   /* avoid */
 
-      /* question.spec.js */
-      describe('Question page', function() {
-        it('should answer any question', function() {
-          var question = element(by.model('question.text'));
-          var answer = element(by.binding('answer'));
-          var button = element(by.css('.question-button'));
+   /* question.spec.js */
+   describe('Question page', function() {
+     it('should answer any question', function() {
+       var question = element(by.model('question.text'));
+       var answer = element(by.binding('answer'));
+       var button = element(by.css('.question-button'));
 
-          question.sendKeys('What is the purpose of life?');
-          button.click();
-          expect(answer.getText()).toEqual("Chocolate!");
-        });
-      });
+       question.sendKeys('What is the purpose of life?');
+       button.click();
+       expect(answer.getText()).toEqual("Chocolate!");
+     });
+   });
    ```
 
    ```javascript
-      /* recommended */
+   /* recommended */
 
-      /* question.spec.js */
-      var QuestionPage = require('./question.page');
+   /* question.spec.js */
+   var QuestionPage = require('./question.page');
 
-      describe('Question page', function() {
-        var question = new QuestionPage();
+   describe('Question page', function() {
+     var question = new QuestionPage();
 
-        it('should ask any question', function() {
-          question.ask('What is the purpose of meaning?');
-          expect(question.answer.getText()).toEqual('Chocolate');
-        });
-      });
+     it('should ask any question', function() {
+       question.ask('What is the purpose of meaning?');
+       expect(question.answer.getText()).toEqual('Chocolate');
+     });
+   });
    ```
 
    ```javascript
-      /* recommended */
+   /* recommended */
 
-      /* question.page.js */
-      var QuestionPage = function() {
-        this.question = element(by.model('question.text'));
-        this.answer = element(by.binding('answer'));
-        this.button = element(by.className('question-button'));
+   /* question.page.js */
+   var QuestionPage = function() {
+     this.question = element(by.model('question.text'));
+     this.answer = element(by.binding('answer'));
+     this.button = element(by.className('question-button'));
 
-        this.ask = function(question) {
-          this.question.sendKeys(question);
-          this.button.click();
-        };
-      };
-      module.exports = QuestionPage;
+     this.ask = function(question) {
+       this.question.sendKeys(question);
+       this.button.click();
+     };
+   };
+   module.exports = QuestionPage;
    ```
 
 ###### [Rule-11: UpperCamelCase the names of your Page Objects]
@@ -687,17 +687,17 @@ but since that's all encapsulated in one place, the task is much more manageable
   apply to it
 
     ```javascript
-      /* avoid */
-      var grandfatherOfAllKnowledge = function() {};
-      var grandfather-of-all-knowledge = function() {};
-      var grandfather_of_all_knowledge = function() {};
+    /* avoid */
+    var grandfatherOfAllKnowledge = function() {};
+    var grandfather-of-all-knowledge = function() {};
+    var grandfather_of_all_knowledge = function() {};
     ```
 
     ```javascript
-      /* recommended */
-      var GrandfatherOfAllKnowledge = function() {
-        /*...*/
-      };
+    /* recommended */
+    var GrandfatherOfAllKnowledge = function() {
+      /*...*/
+    };
     ```
 
 ###### [Rule-12: Pick a descriptive file naming convention for your Page Object files]
@@ -709,22 +709,22 @@ but since that's all encapsulated in one place, the task is much more manageable
   the other test files
 
    ```
-      /* avoid */
-        |-- test
-            |-- unit
-            |-- e2e
-                |-- home
-                    |-- home.js
-                    |-- home.spec.js
-                |-- profile
-                    |-- profile.js
-                    |-- profile.spec.js
-                |-- contacts
-                    |-- contacts.js
-                    |-- contacts.spec.js
-                |-- archive
-                    |-- archive.js
-                    |-- archive.spec.js
+   /* avoid */
+     |-- test
+         |-- unit
+         |-- e2e
+             |-- home
+                 |-- home.js
+                 |-- home.spec.js
+             |-- profile
+                 |-- profile.js
+                 |-- profile.spec.js
+             |-- contacts
+                 |-- contacts.js
+                 |-- contacts.spec.js
+             |-- archive
+                 |-- archive.js
+                 |-- archive.spec.js
    ```
 
    ```
@@ -757,28 +757,28 @@ but since that's all encapsulated in one place, the task is much more manageable
   * One Page Object per file means there's only one class to export
 
 
-    ```javascript
-      /* avoid */
+   ```javascript
+   /* avoid */
 
-      /* user-profile.page.js */
-      var UserProfilePage = function() {};
-      var UserSettingsPage = function() {};
+   /* user-profile.page.js */
+   var UserProfilePage = function() {};
+   var UserSettingsPage = function() {};
 
-      module.exports = UserPropertiesPage;
-      module.exports = UserSettingsPage;
-      ```
+   module.exports = UserPropertiesPage;
+   module.exports = UserSettingsPage;
+   ```
 
-      ```javascript
-      /* recommended */
+   ```javascript
+   /* recommended */
 
-      /* user-profile.pageObject.js */
-      var UserProfilePage = function() {};
-      module.exports = UserPropertiesPage;
+   /* user-profile.pageObject.js */
+   var UserProfilePage = function() {};
+   module.exports = UserPropertiesPage;
 
-      /* user-settings.pageObject.js */
-      var UserSettingsPage = function() {};
-      module.exports = UserSettingsPage;
-    ```
+   /* user-settings.pageObject.js */
+   var UserSettingsPage = function() {};
+   module.exports = UserSettingsPage;
+   ```
 
 
 ###### [Rule-15: Require and instantiate all the modules at the top]
@@ -788,21 +788,21 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Separates dependencies from the test code
   * Makes the dependencies available to all specs of the suite
 
-    ```javascript
-      /* avoid */
+  ```javascript
+  /* avoid */
 
-      /* user-properties.spec.js */
-      var UserPage = require('./user-properties.page');
-      var MenuPage = require('./menu.page');
-      var FooterPage = require('./footer.page');
+  /* user-properties.spec.js */
+  var UserPage = require('./user-properties.page');
+  var MenuPage = require('./menu.page');
+  var FooterPage = require('./footer.page');
 
-      describe('User properties page', function() {
-        var user = new UserPage();
-        var menu = new MenuPage();
-        var footer = new FooterPage();
-        // specs
-      });
-    ```
+  describe('User properties page', function() {
+    var user = new UserPage();
+    var menu = new MenuPage();
+    var footer = new FooterPage();
+    // specs
+  });
+  ```
 
 ###### [Rule-16: Declare all public elements in the constructor]
 
@@ -810,22 +810,22 @@ but since that's all encapsulated in one place, the task is much more manageable
   * The consumer of the Page Object should have quick access to the available elements on a page
 
 
-    ```html
-        <form>
-           Name: <input type="text" ng-model="ctrl.user.name">
-           E-mail: <input type="text" ng-model="ctrl.user.email">
-           <button id="save-button">Save</button>
-        </form>
-    ```
+   ```html
+   <form>
+       Name: <input type="text" ng-model="ctrl.user.name">
+       E-mail: <input type="text" ng-model="ctrl.user.email">
+       <button id="save-button">Save</button>
+   </form>
+   ```
 
-    ```javascript
-        /* recommended */
-        var UserPropertiesPage = function() {
-          this.name = element(by.model('ctrl.user.name'));
-          this.email = element(by.model('ctrl.user.email'));
-          this.saveButton = element(by.id('save-button'));
-        };
-    ```
+   ```javascript
+   /* recommended */
+   var UserPropertiesPage = function() {
+     this.name = element(by.model('ctrl.user.name'));
+     this.email = element(by.model('ctrl.user.email'));
+     this.saveButton = element(by.id('save-button'));
+   };
+   ```
 
 ###### [Rule-17: Declare functions for operations that require more that one step]
 
@@ -834,54 +834,54 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Doing otherwise adds unnecessary complexity
 
   ```javascript
-        /* avoid */
-
-        /* user-properties.page.js */
-        var UserPropertiesPage = function() {
-          this.name = element(by.model('ctrl.user.name'));
-          this.saveButton = element(by.id('save-button'));
-
-          this.enterName = function(name) {
-            this.name.sendKeys(name);
-          };
-        };
-
-
-        /* user-properties.spec.js */
-        var UserPage = require('./user-properties.page');
-
-        describe('User properties page', function() {
-          var user = new UserPage();
-
-          it('should enable save button when a username is entered', function() {
-             user.enterName('TeddyB');
-             expect(user.saveButton.isEnabled()).toBe(true);
-           });
-        });
-    ```
-
-    ```javascript
-        /* recommended */
-
-        /* user-properties.page.js */
-        var UserPropertiesPage = function() {
-          this.name = element(by.model('ctrl.user.name'));
-          this.saveButton = element(by.id('save-button'));
-        };
+  /* avoid */
+    
+  /* user-properties.page.js */
+  var UserPropertiesPage = function() {
+    this.name = element(by.model('ctrl.user.name'));
+    this.saveButton = element(by.id('save-button'));
+  
+    this.enterName = function(name) {
+      this.name.sendKeys(name);
+    };
+  };
 
 
-        /* user-properties.spec.js */
-        var UserPage = require('./user-properties.page');
+  /* user-properties.spec.js */
+  var UserPage = require('./user-properties.page');
 
-        describe('User properties page', function() {
-          var user = new UserPage();
+  describe('User properties page', function() {
+    var user = new UserPage();
 
-          it('should enable save button when a username is entered', function() {
-             user.name.sendKeys('TeddyB');
-             expect(user.saveButton.isEnabled()).toBe(true);
-           });
-        });
-    ```
+    it('should enable save button when a username is entered', function() {
+       user.enterName('TeddyB');
+       expect(user.saveButton.isEnabled()).toBe(true);
+     });
+  });
+  ```
+
+  ```javascript
+  /* recommended */
+
+  /* user-properties.page.js */
+  var UserPropertiesPage = function() {
+    this.name = element(by.model('ctrl.user.name'));
+    this.saveButton = element(by.id('save-button'));
+  };
+
+
+  /* user-properties.spec.js */
+  var UserPage = require('./user-properties.page');
+
+  describe('User properties page', function() {
+    var user = new UserPage();
+
+    it('should enable save button when a username is entered', function() {
+       user.name.sendKeys('TeddyB');
+       expect(user.saveButton.isEnabled()).toBe(true);
+     });
+  });
+  ```
 
 ###### [Rule-18: Do not add any assertions in your Page Object definitions]
 
@@ -902,21 +902,21 @@ but since that's all encapsulated in one place, the task is much more manageable
   * When the directive changes you only need to change the wrapper once
 
 
-    ```javascript
-        /* recommended */
-        describe('protractor website', function() {
-           var menu = new Menu();
-           it('should navigate to API view', function() {
-             browser.get('http://www.protractortest.org/#/');
+  ```javascript
+  /* recommended */
+  describe('protractor website', function() {
+     var menu = new Menu();
+     it('should navigate to API view', function() {
+       browser.get('http://www.protractortest.org/#/');
 
-             menu.dropdown('Reference')
-                 .option('Protractor API')
-                 .click();
-             expect(browser.getCurrentUrl())
-                 .toBe('http://www.protractortest.org/#/api');
-           });
-        });
-    ```
+       menu.dropdown('Reference')
+           .option('Protractor API')
+           .click();
+       expect(browser.getCurrentUrl())
+           .toBe('http://www.protractortest.org/#/api');
+     });
+  });
+  ```
 
 ### Test Suites
 
@@ -964,70 +964,70 @@ but since that's all encapsulated in one place, the task is much more manageable
   to create the user.
 
   ```javascript
-    /* avoid */
-    it('should create user', function() {
-       browser.get('#/user-list');
-       userList.newButton.click();
+  /* avoid */
+  it('should create user', function() {
+    browser.get('#/user-list');
+    userList.newButton.click();
 
-       userProperties.name.sendKeys('Teddy B');
-       userProperties.saveButton.click();
+    userProperties.name.sendKeys('Teddy B');
+    userProperties.saveButton.click();
 
-       browser.get('#/user-list');
-       userList.search('Teddy B');
-       expect(userList.getNames()).toEqual(['Teddy B']);
-    });
+    browser.get('#/user-list');
+    userList.search('Teddy B');
+    expect(userList.getNames()).toEqual(['Teddy B']);
+  });
 
-    it('should update user', function() {
-       browser.get('#/user-list');
-       userList.clickOn('Teddy B');
+  it('should update user', function() {
+    browser.get('#/user-list');
+    userList.clickOn('Teddy B');
 
-       userProperties.name.clear().sendKeys('Teddy C');
-       userProperties.saveButton.click();
+    userProperties.name.clear().sendKeys('Teddy C');
+    userProperties.saveButton.click();
 
-       browser.get('#/user-list');
-       userList.search('Teddy C');
-       expect(userList.getNames()).toEqual(['Teddy C']);
-    });
+    browser.get('#/user-list');
+    userList.search('Teddy C');
+    expect(userList.getNames()).toEqual(['Teddy C']);
+  });
   ```
     
-  ```javascript
-    /* recommended */
-   describe('when the user Teddy B is created', function(){
-   
-       beforeAll(function(){
-          browser.get('#/user-list');
-          userList.newButton.click();
-   
-          userProperties.name.sendKeys('Teddy B');
-          userProperties.saveButton.click();
-          browser.get('#/user-list');
-       });
-   
-       it('should exist', function(){
-          userList.search('Teddy B');
-          expect(userList.getNames()).toEqual(['Teddy B']);    
-          userList.clear();
-       });
-   
-       describe('and gets updated to Teddy C', function(){
-   
-           beforeAll(function(){
-               userList.clickOn('Teddy B');
-   
-               userProperties.name.clear().sendKeys('Teddy C');
-               userProperties.saveButton.click();
-   
-               browser.get('#/user-list');
-           });
-   
-           it('should be Teddy C', function(){
-               userList.search('Teddy C');
-               expect(userList.getNames()).toEqual(['Teddy C']);
-               userList.clear();
-           });
-       });
-    });
-  ```
+ ```javascript
+ /* recommended */
+ describe('when the user Teddy B is created', function(){
+ 
+   beforeAll(function(){
+      browser.get('#/user-list');
+      userList.newButton.click();
+ 
+      userProperties.name.sendKeys('Teddy B');
+      userProperties.saveButton.click();
+      browser.get('#/user-list');
+   });
+ 
+   it('should exist', function(){
+     userList.search('Teddy B');
+     expect(userList.getNames()).toEqual(['Teddy B']);    
+     userList.clear();
+   });
+ 
+   describe('and gets updated to Teddy C', function(){
+ 
+     beforeAll(function(){
+       userList.clickOn('Teddy B');
+ 
+       userProperties.name.clear().sendKeys('Teddy C');
+       userProperties.saveButton.click();
+ 
+       browser.get('#/user-list');
+     });
+ 
+     it('should be Teddy C', function(){
+       userList.search('Teddy C');
+       expect(userList.getNames()).toEqual(['Teddy C']);
+       userList.clear();
+     });
+   });
+ });
+ ```
 
   **Why?**
   * You can run each single test in isolation
