@@ -148,6 +148,12 @@ Coming back to our previous car example, e2e testing the car would mean checking
 with each other and have the expected behavior as an overall. For instance you would want to know if the break lights turn
 on when the driver hits the break or if the wheels start turning when the driver steps on the acceleration pedal, and so on.
 
+It is important to keep in mind that, maybe contrary to unit tests, e2e tests are black-box tests and only
+care about the functionality of the application from an end user point of view. Whether or not the services around the
+application work properly, or that responses from the server are correct, and so on, is outside the scope of e2e testing
+and should be handled as separate tests, which we will not cover in this article. Rule of thumb is again to mock all
+these dependencies.
+
 There is a lot of discussion around what parts of an application should or shouldn't be e2e tested and about how a proper
 system under test should be set up. Many developers who start with e2e testing are usually confused about what the 'right'
 way to do things is. Julie Ralph wrote a very good article about this, that I will link here once it is officially
@@ -163,16 +169,15 @@ throughout the process.
 ## Protractor
 
 If you've been in the Angular world for long enough, you'll probably remember about the [Angular Scenario Runner]
-(https://code.angularjs.org/1.2.16/docs/guide/e2e-testing). The Scenario Runner was originally shipped with Angular as a
+(https://code.angularjs.org/1.2.16/docs/guide/e2e-testing) (also called 'karma e2e'). The Scenario Runner was originally shipped with Angular as a
 tool to help developers e2e test their application. However, due to some design and maintenance issues, the team decided
-to not continue with its development and provide a better solution on the long term. Currently, the Angular Scenario
-Runner is deprecated and in maintenance mode (last time I checked ;)), so in case you are using it in your application,
-you might want to reconsider.
+to not continue with its development and provide a better solution on the long term. Currently, the Angular Scenario Runner is deprecated and in 
+maintenance mode, so in case you are using it in your application, you might want to consider migrating to protractor.
 
-The "new" tool for e2e testing your AngularJS applications is Protractor. Protractor is an e2e test framework built on top
-of WebDriverJS, that comes with some Angular specific locator strategies on top of those offered by webdriverjs. You can read
-all about the project and the API specification at [http://www.protractortest.org](http://www.protractortest.org)
-
+The "new" tool for e2e testing your AngularJS application is called Protractor. Protractor is an e2e test framework build on top
+of WebDriverJS that comes with some Angular specific locator strategies on top of those offered by WebDriverJS. WebDriverJS is a JavaScript api for 
+interacting with Selenium. The biggest advantage over the old Angular Scenario Runner is that, instead of hacking in the dom using JavaScript, protractor will
+pretend to be an actual human being who is using your app.
 
 ## Page Objects
 
