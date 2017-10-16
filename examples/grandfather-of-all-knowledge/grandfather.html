@@ -1,0 +1,8 @@
+<div>
+    <div class="question">
+        <input class="question__field" ng-model="question.text"
+               placeholder="What would you like to ask the grandfather of all knowledge?">
+        <button class="question__button" ng-click="answerQuestion()" ng-disabled="!question.text">?</button>
+    </div>
+    <div class="answer">{{answer}}</div>
+</div>
