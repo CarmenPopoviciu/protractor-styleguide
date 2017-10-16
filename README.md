@@ -413,19 +413,19 @@ but since that's all encapsulated in one place, the task is much more manageable
            baseUrl: local_base_url,
            seleniumAddress: local_Se,
            specs: ['..../**/*.spec.js']
-           }
-         }
-       },
-       e2e.dev: {
-         options: {
-           args: {
-             baseUrl: dev_base_url,
-             seleniumAddress: dev_Se,
-             specs: ['..../**/*.spec.js']
-           }
          }
        }
-      ```
+     },
+     e2e.dev: {
+       options: {
+         args: {
+           baseUrl: dev_base_url,
+           seleniumAddress: dev_Se,
+           specs: ['..../**/*.spec.js']
+         }
+       }
+     }
+   ```
 
 ### Project Structure
 
@@ -437,7 +437,8 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Clearly separates e2e tests from unit tests
 
   ##### Small scale Angular apps
-     ```
+  
+   ```
      /* avoid */
      |-- project-folder
        |-- app
@@ -463,9 +464,9 @@ but since that's all encapsulated in one place, the task is much more manageable
                profile.spec.js
                contacts.pageObject.js
                contacts.spec.js
-     ```
+   ```
 
-     ```
+   ```
      /* recommended */
      |-- project-folder
        |-- app
@@ -492,11 +493,11 @@ but since that's all encapsulated in one place, the task is much more manageable
                home.spec.js
                profile.spec.js
                contacts.spec.js
-     ```
-
+   ```
 
   ##### Large scale Angular apps
-     ```
+  
+   ```
      /* avoid */
      |-- project-folder
        |-- app
@@ -525,9 +526,9 @@ but since that's all encapsulated in one place, the task is much more manageable
                profile.spec.js
                contacts.pageObject.js
                contacts.spec.js
-     ```
+   ```
 
-     ```
+   ```
      /* recommended */
      |-- project-folder
        |-- app
@@ -560,8 +561,7 @@ but since that's all encapsulated in one place, the task is much more manageable
                |-- contacts
                      contacts.pageObject.js
                      contacts.spec.js
-     ```
-
+   ```
 
 ### Locator Strategies
 
@@ -833,7 +833,7 @@ but since that's all encapsulated in one place, the task is much more manageable
   * Most elements are exposed by the Page Object and can be used directly in the test
   * Doing otherwise adds unnecessary complexity
 
-  ```javascript
+    ```javascript
         /* avoid */
 
         /* user-properties.page.js */
