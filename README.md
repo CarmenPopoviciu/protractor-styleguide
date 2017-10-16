@@ -769,7 +769,7 @@ but since that's all encapsulated in one place, the task is much more manageable
       var UserProfilePage = function() {};
       var UserSettingsPage = function() {};
 
-      module.exports = UserPropertiesPage;
+      module.exports = UserProfilePage;
       module.exports = UserSettingsPage;
       ```
 
@@ -778,7 +778,7 @@ but since that's all encapsulated in one place, the task is much more manageable
 
       /* user-profile.pageObject.js */
       var UserProfilePage = function() {};
-      module.exports = UserPropertiesPage;
+      module.exports = UserProfilePage;
 
       /* user-settings.pageObject.js */
       var UserSettingsPage = function() {};
