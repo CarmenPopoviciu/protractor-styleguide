@@ -1,7 +1,7 @@
 'use strict';
 
 var AfterMePageObject = function() {
-    var container = element(by.css("div"));
+    var container = element(by.id("after-me-example"));
 
     this.sequenceElement = container.element(by.binding("sequence"));
     this.userSequenceElement = container.element(by.binding("userSequence"));

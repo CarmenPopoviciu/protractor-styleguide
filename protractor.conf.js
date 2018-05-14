@@ -5,12 +5,12 @@
 
 exports.config = {
     specs: [
-        'examples/*/test/*Spec.js'
+        'test/e2e/**/*Spec.js'
     ],
     capabilities: {
         browserName: 'chrome'
     },
-    baseUrl: 'http://localhost:9000',
+    baseUrl: 'http://127.0.0.1:8080',
     rootElement: 'body',
     framework: 'jasmine'
 };

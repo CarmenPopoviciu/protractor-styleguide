@@ -1,6 +1,7 @@
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+	font-family: Sans-Serif;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .container {
@@ -18,17 +19,19 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.container__header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
-
 .container__body {
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
+}
+
+.container__body {
+	text-align: left;
+}
+
+.container__body > a {
+	display:block;
+	margin-bottom:12px;
 }
 
 .container__footer {
@@ -36,11 +39,16 @@ body {
     border-top: 1px solid #e5e5e5;
 }
 
+
+
+
 @media (min-width: 768px) {
     .container {
         max-width: 730px;
     }
 }
+
+
 
 
 /* Responsive: Portrait tablets and up */

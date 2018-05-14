@@ -1,0 +1,155 @@
+body {
+	font-family: Sans-Serif;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container__header,
+.container__footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.container__header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.container__header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+.container__body {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.container__footer {
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+    }
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .container__header,
+    .marketing,
+    .container__footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .container__header {
+        margin-bottom: 30px;
+    }
+}
+
+/* grandfather stuff */
+
+
+.question__field {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+.question__button {
+    width: 2em;
+    height: 2em;
+    font: bold 1.7em serif;
+    background-color: #86bb60;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.answer {
+    font: italic 1.2em serif;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+
+
+/* after me stuff */
+
+.key-group, .sequence-group { 
+	font-size:0; 
+	width:174px; 
+	padding:3px 6px; 
+	margin:0 auto; 
+	box-sizing:border-box;
+}
+
+.sequence-group {height:50px; text-align:left;}
+
+.sequence-group span {
+	box-sizing:border-box;
+	display:inline-block;
+	font-size:24px;
+	padding:4px 8px;
+	text-align:left;
+}
+.sequence-group span:first-child {
+	text-align:right;
+	border-right: 1px solid #222;
+	width:50%;
+}
+
+button{
+	margin-left:6px;
+	font-size: 25px;
+	font-weight:bold;
+	border:0;
+	border-radius:4px;
+	width:50px;
+	height:50px;
+	color:#FFF;    
+    -webkit-transition: background-color 500ms linear;
+    -moz-transition: background-color 500ms linear;
+    -ms-transition: background-color 500ms linear;
+    transition: background-color 500ms linear;
+	background-color:#3A76E3;
+}
+button:first-child {
+	margin-left:0;
+}
+
+button:hover {
+	background-color:#000080;
+	-webkit-transition: background-color 0s;
+	-moz-transition: background-color 0s;
+	-ms-transition: background-color 0s;
+	transition: background-color 0s;
+}
+
+button[disabled] { background-color:#777; }
+
+button.reset {
+	width:100%;
+	height:30px;
+	font-size:18px;
+	margin-top:20px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: #008000;
+}
