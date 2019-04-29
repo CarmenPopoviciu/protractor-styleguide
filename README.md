@@ -58,17 +58,17 @@ awesome! -`ღ´-
 ## Table of Contents
 
 1. [A word on testing](#a-word-on-testing)
-  * [Unit Testing](#unit-testing)
-  * [E2E Testing](#e2e-testing)
+	* [Unit Testing](#unit-testing)
+	* [E2E Testing](#e2e-testing)
 2. [Protractor](#protractor)
 3. [Page Objects](#page-objects)
 4. [Helper Classes](#helper-classes)
 5. [Style Guide Rules](#style-guide-rules)
-  * [Generic Rules](#generic-rules)
-  * [Project Structure](#project-structure)
-  * [Locator Strategies](#locator-strategies)
-  * [Page Objects](#page-objects-1)
-  * [Test suites](#test-suites)
+	* [Generic Rules](#generic-rules)
+	* [Project Structure](#project-structure)
+	* [Locator Strategies](#locator-strategies)
+	* [Page Objects](#page-objects-1)
+	* [Test suites](#test-suites)
 6. [Useful Links](#useful-links)
 
 
