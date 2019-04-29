@@ -69,7 +69,7 @@ awesome! -`ღ´-
   * [Locator Strategies](#locator-strategies)
   * [Page Objects](#page-objects-1)
   * [Test suites](#test-suites)
-5. [Useful Links](#useful-links)
+6. [Useful Links](#useful-links)
 
 
 ## A word on testing
@@ -852,7 +852,7 @@ but since that's all encapsulated in one place, the task is much more manageable
         };
     ```
 
-###### [Rule-17: Declare functions for operations that require more that one step]
+###### [Rule-17: Declare functions for operations that require more than one step]
 
   **Why?**
   * Most elements are exposed by the Page Object and can be used directly in the test
